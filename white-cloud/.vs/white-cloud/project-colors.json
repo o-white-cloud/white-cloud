@@ -5,7 +5,17 @@
       "ProjectGuid": "07b7df24-badb-432e-93fb-a0d1fcd572c6",
       "DisplayName": "white-cloud.web",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "af5f17f5-4752-49a5-a8e8-032304f87a19": {
+      "ProjectGuid": "af5f17f5-4752-49a5-a8e8-032304f87a19",
+      "DisplayName": "white-cloud.web",
+      "ColorIndex": 1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 2
 }
