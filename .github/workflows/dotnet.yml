@@ -3,7 +3,7 @@ name: .NET
 on:
   push:
     branches: [ trunk ]
-    paths: white-cloud.web/**
+    paths: white-cloud/**
 jobs:
   build:
 
