@@ -25,7 +25,7 @@ const testIcons: { [key: string]: React.ReactElement } = {
 const TestCard: React.FC<TestCardProps> = (props) => {
   return (
     <Box sx={{ width: 275 }}>
-      <Link href={`/${props.test.id}`} noLinkStyle>
+      <Link href={`/tests/${props.test.id}`} noLinkStyle>
         <Card>
           <React.Fragment>
             <CardContent>

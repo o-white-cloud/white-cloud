@@ -1,6 +1,7 @@
 import Hero from 'components/Hero';
 import TestList from 'components/TestList';
 import { TestModel } from 'models/TestModel';
+import { GetStaticProps } from 'next';
 
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -15,39 +16,43 @@ const tests: TestModel[] = [
     questions: [
       {
         id: 1,
-        title: "Te simti singur noaptea in padure?",
-        type: "choice",
+        title: 'Te simti singur noaptea in padure?',
+        type: 'choice',
         answers: [
           {
             id: 1,
-            name: "Da"
+            name: 'Da',
           },
           {
             id: 2,
-            name: "Nu"
-          }
-        ]
+            name: 'Nu',
+          },
+        ],
       },
       {
         id: 2,
-        type: "choice",
-        title: "Vara iti este cateodata cald?",
+        type: 'choice',
+        title: 'Vara iti este cateodata cald?',
         answers: [
           {
             id: 1,
-            name: "Da"
+            name: 'Da',
           },
           {
             id: 2,
-            name: "Nu"
-          }
-        ]
-      }
-    ]
-  }
+            name: 'Nu',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
-const Homepage = () => {
+interface HomepageProps {
+  tests: TestModel[];
+}
+
+const Homepage: React.FC<HomepageProps> = (props) => {
   return (
     <>
       <Hero
@@ -72,3 +77,15 @@ const Homepage = () => {
 };
 
 export default Homepage;
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  if (!context.params) {
+    return { props: {} };
+  }
+
+  const id = Number(context.params['id']);
+  const res = await fetch('http://localhost:7187/tests');
+  const tests: TestModel[] = await res.json();
+
+  return { props: { tests } };
+};
