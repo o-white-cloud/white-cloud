@@ -3,7 +3,7 @@ import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 import {
-    Checkbox, FormControlLabel, FormGroup, Radio, RadioGroup, Typography
+    Checkbox, FormControlLabel, FormGroup, Paper, Radio, RadioGroup, styled, Typography
 } from '@mui/material';
 
 interface TestQuestionProps<QT extends Question = Question> {
@@ -73,17 +73,22 @@ const TestQuestionAnswers: React.FC<TestQuestionProps> = (props) => {
   }
 };
 
+const QuestionPaper = styled(Paper)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
+  padding: theme.spacing(2)
+}));
+
 const TestQuestion: React.FC<TestQuestionProps> = (props) => {
   const { question } = props;
 
   return (
-    <div>
-      <Typography variant="h5">{question.title}</Typography>
+    <QuestionPaper>
+      <Typography variant="h5">{question.id}. {question.title}</Typography>
       <TestQuestionAnswers
         question={question}
         formControl={props.formControl}
       />
-    </div>
+    </QuestionPaper>
   );
 };
 

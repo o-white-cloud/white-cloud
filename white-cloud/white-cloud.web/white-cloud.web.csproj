@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="tests\InteligenteMultiple.json">
+    <Content Update="test_files\Perfectionism.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="test_files\Friedman.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

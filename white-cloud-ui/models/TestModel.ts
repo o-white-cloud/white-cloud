@@ -8,7 +8,7 @@ export interface TestModel {
   questions: Question[];
 }
 
-export type QuestionType = 'text' | 'input' | 'range';
+export type QuestionType = 'choice' | 'input' | 'range';
 
 export type Question = ChoiceQuestion | InputQuestion | RangeQuestion;
 

@@ -6,53 +6,12 @@ import { GetStaticProps } from 'next';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-const tests: TestModel[] = [
-  {
-    id: 1,
-    icon: 'multipleInt',
-    name: 'Inteligente multiple',
-    excerpt: 'Chiar crezi ca ai mai multe?',
-    description: 'Much description, such lorem ipsum',
-    questions: [
-      {
-        id: 1,
-        title: 'Te simti singur noaptea in padure?',
-        type: 'choice',
-        answers: [
-          {
-            id: 1,
-            name: 'Da',
-          },
-          {
-            id: 2,
-            name: 'Nu',
-          },
-        ],
-      },
-      {
-        id: 2,
-        type: 'choice',
-        title: 'Vara iti este cateodata cald?',
-        answers: [
-          {
-            id: 1,
-            name: 'Da',
-          },
-          {
-            id: 2,
-            name: 'Nu',
-          },
-        ],
-      },
-    ],
-  },
-];
-
 interface HomepageProps {
   tests: TestModel[];
 }
 
 const Homepage: React.FC<HomepageProps> = (props) => {
+  const { tests } = props;
   return (
     <>
       <Hero
@@ -76,16 +35,11 @@ const Homepage: React.FC<HomepageProps> = (props) => {
   );
 };
 
-export default Homepage;
-
 export const getStaticProps: GetStaticProps = async (context) => {
-  if (!context.params) {
-    return { props: {} };
-  }
-
-  const id = Number(context.params['id']);
-  const res = await fetch('http://localhost:7187/tests');
+  const res = await fetch('http://localhost:5187/tests');
   const tests: TestModel[] = await res.json();
-
+  
   return { props: { tests } };
 };
+
+export default Homepage;

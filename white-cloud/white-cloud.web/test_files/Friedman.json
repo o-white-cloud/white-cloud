@@ -1,0 +1,494 @@
+﻿{
+  "id": 1,
+  "icon": "friedman",
+  "name": "Maturizare emoțională",
+  "excerpt": "descriere foarte scurta - 2 propozitii",
+  "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a varius sapien. Sed ullamcorper iaculis venenatis. Sed non luctus tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec accumsan rutrum lacus, ac dignissim urna semper sit amet. Pellentesque auctor mauris a velit sagittis sodales. Morbi nunc libero, pretium in eleifend sed, varius ac ligula. Vivamus condimentum nisi sit amet libero pretium, eget blandit felis tempor. Mauris luctus, est eu tristique iaculis, nisl ex dictum quam, quis bibendum turpis justo eget magna. Nulla venenatis massa mauris, venenatis lobortis justo semper varius. Maecenas venenatis placerat ultrices. Vestibulum efficitur ante arcu, a porta neque sodales vel. Ut ut magna metus.</p><p>Nullam eget lacus et sapien fermentum elementum eu id metus. Nunc ultricies sed quam ullamcorper malesuada. Ut ac imperdiet tortor, vitae tincidunt lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed sagittis fermentum interdum. Ut ac est risus. Nulla id pretium turpis. Nulla vitae dolor ut ligula consequat vestibulum id et enim. Morbi sit amet ornare urna, non auctor nisi. Suspendisse dignissim egestas urna nec consectetur. Etiam cursus, libero eget volutpat sagittis, metus lacus accumsan elit, non eleifend est massa vitae urna. Nullam accumsan vel libero quis malesuada.</p>",
+  "questions": [
+    {
+      "id": 1,
+      "type": "choice",
+      "title": "Mă descurajez destul de uşor şi am deseori stări şi crize ocazionale de depresiune?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 11
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 21
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "choice",
+      "title": "Îmi place să fiu \"pus la punct\" cu îmbrăcămintea şi mă bucur când reuşesc să atrag atenţia (asupra mea) cu îmbrăcămintea şi manierele mele?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 7
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "choice",
+      "title": "Sunt cu sânge rece şi stăpân pe mine în situaţii neprevăzute şi periculoase?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 26
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "choice",
+      "title": "Sunt înclinat să fiu foarte iritabil sau dogmatic când, susţinându-mi o părere, întâmpin o opoziţie puternică?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 12
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "choice",
+      "title": "Solitudinea îmi este agreabilă, îmi place să fiu singur?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 40
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "choice",
+      "title": "Spun adesea lucruri pe care apoi le regret?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 10
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "choice",
+      "title": "Relaţiile cu familia mea sunt paşnice şi armonioase?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 31
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 9
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "choice",
+      "title": "Mă simt adesea rănit de cuvintele şi acţiunile altora?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 11
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "type": "choice",
+      "title": "Sunt gata să admit că am greşit când îmi dau seama de aceasta?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 26
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 26
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "type": "choice",
+      "title": "Sunt înclinat să dau vina pe alţii pentru greşelile şi erorile mele?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 7
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "type": "choice",
+      "title": "Mă consider cel mai \"realizat\" dintre toate rudele mele?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 6
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 29
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "type": "choice",
+      "title": "Nutresc gândul că nu am avut noroc în viaţă?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 11
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 26
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "type": "choice",
+      "title": "Sunt înclinat să trăiesc peste mijloacele mele?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 13
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "type": "choice",
+      "title": "Am un accentuat simţ de inferioritate sau o lipsă de încredere în mine, pe care încerc s-o ascund?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 7
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "type": "choice",
+      "title": "Sunt înclinat să plâng când asist la o piesă de teatru sau film emoţionant?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 5
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 28
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "type": "choice",
+      "title": "Micile supărări mă fac să-mi ies din fire?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 11
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "type": "choice",
+      "title": "Sunt înclinat să impresionez cu superioritatea mea pe ceilalţi oameni?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 7
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "type": "choice",
+      "title": "Sunt dominator, îmi place să mă impun celorlalţi?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 12
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "type": "choice",
+      "title": "În general caut să câştig simpatia celor din jurul meu?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 7
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 24
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "type": "choice",
+      "title": "Sunt furios când am necazuri sau neplăceri?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 5
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "type": "choice",
+      "title": "Sunt stăpânit de ură, cu o antipatie activă faţă de anumite persoane?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 7
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 21
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "type": "choice",
+      "title": "Devin plin de invidie şi gelozie când alţii au succes?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 11
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 21
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "type": "choice",
+      "title": "Sunt foarte atent faţă de asentimenetele altora?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 22
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "type": "choice",
+      "title": "Mă înfurii sau mă necăjesc adesea şi am certuri cu oamenii?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 10
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "type": "choice",
+      "title": "Am uneori (adesea) gânduri de sinucidere?",
+      "answers": [
+        {
+          "id": 1,
+          "name": "Da",
+          "value": 5
+        },
+        {
+          "id": 2,
+          "name": "Nu",
+          "value": 20
+        }
+      ]
+    }
+  ],
+  "results": {
+    "strategy": "SumIntervals",
+    "normalizeValue": 25,
+    "intervals": [
+      {
+        "min": 0,
+        "max": 9,
+        "name": "I",
+        "details": "Infantilă în planul dezvoltării emoţionale (retard în ordinea dezvoltării emoţionale corelată cu dezvoltarea mentală)."
+      },
+      {
+        "min": 10,
+        "max": 11,
+        "name": "I",
+        "details": "Copilăroasă sub aspect emoţional."
+      },
+      {
+        "min": 12,
+        "max": 13,
+        "name": "II-I",
+        "details": "Persoană adolescentină sensibilă."
+      },
+      {
+        "min": 14,
+        "max": 15,
+        "name": "II-I",
+        "details": "Uşoară imaturitate emoţională."
+      },
+      {
+        "min": 16,
+        "max": 17,
+        "name": "II",
+        "details": "Tendinţă către imaturitate emoţională."
+      },
+      {
+        "min": 18,
+        "max": 19,
+        "name": "III",
+        "details": "Maturitate emoţională."
+      },
+      {
+        "min": 20,
+        "max": 21,
+        "name": "III-IV",
+        "details": "Persoană sensibilă, profund umană, cu echilibru emoţional."
+      },
+      {
+        "min": 22,
+        "max": 24,
+        "name": "IV-V",
+        "details": "Maturitate emoţională normală."
+      },
+      {
+        "min": 25,
+        "max": 25,
+        "name": "V",
+        "details": "Perfect maturizat emoţional."
+      }
+    ]
+  }
+}

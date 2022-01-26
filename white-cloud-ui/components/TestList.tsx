@@ -10,6 +10,9 @@ interface TestListProps {
 }
 
 const TestList: React.FC<TestListProps> = (props) => {
+  if(!props.testItems) {
+    return <div>No tests found</div>;
+  }
   return (
     <Grid container spacing={3}>
       {props.testItems.map((t) => (
