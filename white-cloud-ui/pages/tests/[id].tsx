@@ -4,20 +4,37 @@ import { TestModel } from 'models';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React, { useCallback } from 'react';
 
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, TextField, Typography } from '@mui/material';
 
 interface TestProps {
   testItem: TestModel;
 }
 
+const server = 'http://localhost:5187';
 const Test: React.FC<TestProps> = (props) => {
   const { testItem } = props;
-  const onTestSubmit = useCallback((answers: { [qId: number]: string }) => {},
-  []);
+  const onTestSubmit = useCallback(
+    (email: string, answers: { [qId: number]: string }) => {
+      fetch(`${server}/tests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          testId: testItem.id,
+          answers,
+        }),
+      })
+        .then((r) => r.json())
+        .then((x) => console.log(JSON.stringify(x)));
+    },
+    [testItem]
+  );
   return (
-    <Container>
+    <Container sx={{marginTop: 4}}>
       <Typography variant="h2">{testItem.name}</Typography>
-      <Typography variant="body1">{parse(testItem.description)}</Typography>
+      <Box sx={{ typography: 'body1' }}>{parse(testItem.description)}</Box>
       <TestRunner testItem={testItem} onSubmit={onTestSubmit} />
     </Container>
   );
@@ -25,7 +42,7 @@ const Test: React.FC<TestProps> = (props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Call an external API endpoint to get posts
-  const res = await fetch('http://localhost:5187/tests');
+  const res = await fetch(`${server}/tests`);
   const tests: TestModel[] = await res.json();
 
   // Get the paths we want to pre-render based on posts
@@ -44,7 +61,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   const id = Number(context.params['id']);
-  const res = await fetch('http://localhost:5187/tests');
+  const res = await fetch(`${server}/tests`);
   const tests: TestModel[] = await res.json();
 
   return { props: { testItem: tests.find((t) => t.id === id) } };

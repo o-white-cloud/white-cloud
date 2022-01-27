@@ -1,9 +1,10 @@
-﻿using white_cloud.web.Models;
+﻿using white_cloud.web.Models.Tests;
 
 namespace white_cloud.web.Data
 {
     public interface ITestsRepository
     {
-        public Task<List<TestModel>> GetTests();
+        Task<List<TestModel>> GetTests(bool includeResults = false);
+        Task<TestModel?> GetTest(int id, bool includeResults = false);
     }
 }

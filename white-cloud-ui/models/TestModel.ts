@@ -23,6 +23,7 @@ export interface ChoiceQuestion extends QuestionBase {
   answers: {
     id: number;
     name: string;
+    value: number;
   }[];
 }
 

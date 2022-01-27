@@ -132,12 +132,12 @@
         {
           "id": 1,
           "name": "Yes",
-          "value": 11
+          "value": 1
         },
         {
           "id": 2,
           "name": "No",
-          "value": 10
+          "value": 0
         }
       ]
     },
