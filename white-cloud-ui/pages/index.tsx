@@ -36,7 +36,7 @@ const Homepage: React.FC<HomepageProps> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetch('http://localhost:5187/tests');
+  const res = await fetch(`${process.env.BUILD_HOST}/tests`);
   const tests: TestModel[] = await res.json();
   
   return { props: { tests } };

@@ -2,6 +2,7 @@
 {
     public interface IEmailService
     {
-        Task SendEmail(string template, object data);
+        Task SendEmail(string to, string subject, string body);
+        Task SendEmail(string to, string subject, string template, object data);
     }
 }

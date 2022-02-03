@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "white-cloud-web-api",
+  "private_key_id": "2a69b8767db0bcf2ac6e37f0254a93a1690a9b0a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCW3csq3MFyO1cU\nMp+9j83lxTI45Yx455zlUKn+PCRG7QAd7rufGePWwZ+t+cPW9AxPvNPtlHvZS2Dt\nRvNaJV7pFiMjU2ix7BfKC5KPAI6Y6foJ8Dlyxkmex2CgNts80jhVHKLLFURyOj1m\n3NkvCaW1akKMlZJO7pnHXkELxSJ2kp1K+lBtWQeTMnSO3MxqPng349N7i1wVrfeF\nLW+SFXjznfEZtpejDqZPzYXaP9H6zjUvC6wVfe40/U90oRqArytwnkjIYWTXIKuy\nDEg1mqCTOCOChFuXAL3IqaN2vhktid9ZLJiWlYw0OMZVZbreArN1nfIfY633yyvA\neNu4xpIvAgMBAAECggEAROqNYAeW4KlFxoa3nN7flfoGTqJhkGtxKvm1pdrwUWv7\nNTE0iOHJR/WMDWu+b+ds5lHiV7GP/7uky88w5DmVCRHhPEZiWYB5f4TYzrVY7nZX\nj4mqnIkC4WK/e4CDlt2K+SpLHU0aRrnfCamSFqAoD966BsFeo+rv2Xhva0KC0znD\nsTMb8n7lqvg8ebkE1tDPhyMZxfHqmq3iGUdCyuCj9WtDLpefpHmbAnR4wduBmBYi\nTk4BLebEa8mHZBxOnn1POF4b6l/qqzFmXxV2POPv1k7gfRIV0gb2Kd3tLWzaO5M1\nhVtRJ9LckRaQwdFsae7ZNNA2H6SuBBrSq+M0Rzu2wQKBgQDLwD0XhnhNKTHusjhw\nDXtrRC0m5lghJh0+XLz5Vyle8rHtI7vGLZnLKne81SahTj2tEPuN6OcANnq0Sm2k\ncFr+ENTpVMrPL1bk2i5qMZkNJvVR3u289PuL4GVF9nJhbkciPdVxQe2pGr1OjAba\nDEsoZEode9oEkqj27HyQ2dTl7wKBgQC9jc+Kts37j+fkS/2o712k1FNSyoTpDa/V\nkVmrC47bYya/iBLRu0qkt56oA5HcLeylRem15Mtp8mb1bxDlPkduEhVzM1YZmly/\nwSS3DKDlB1fCFKWQUCLol1nd4Xzk4XUNhofNDy12FNVn68MEynRtqK3hB9pabmrS\nAlrtNe9XwQKBgQCJ4oO1avP4y9sVvRhChG00b0PbImEbtc5uiJX+a0T9E2Ljp54I\nhI2ilw/HA7yLxwYoG+kQ5T+GvleVsRS4Bq0daMidSxug0FmOsDRe+0enRekYybO7\nf1LIG0iN6zUGyHltK8lJRyONoCHiiRKN92nZYN1jTJCDLbkYuXunDzNrkwKBgQCG\nG7HNgz5Cj/LRi44AmrGXL31wIsZcGInhwL8/C6Nbxk+gzMX7ytWpqhu+5R+qNneq\nCseqICBmadC8LoM2nZRt5K92XMi6voKGTEEMnQusXkCRmIf2jSvVgVdcau8xA+4L\nzrV/uBBC7cR6jMviNNagyumSPzsWJe6/fFkWYMVgQQKBgQC0WFdKRXE+vONxqVYD\nxxNvj6Sq768/jPla8egpR/yUoEnggEgieWWrz/Umj0eWjYE7M7AuOiZAW33tOuUI\nPSzdOHVn9Q4TQsP3U+sdJ1+U/8atoIHJhMKPuZhVGPrkrt9phOWbas2e++8I5Hkx\nBlBMaGmMOi5rnV0Pnz69VGqwEg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "white-cloud-web-api@white-cloud-web-api.iam.gserviceaccount.com",
+  "client_id": "117802456135157420421",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/white-cloud-web-api%40white-cloud-web-api.iam.gserviceaccount.com"
+}

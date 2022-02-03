@@ -10,12 +10,11 @@ interface TestProps {
   testItem: TestModel;
 }
 
-const server = 'http://localhost:5187';
 const Test: React.FC<TestProps> = (props) => {
   const { testItem } = props;
   const onTestSubmit = useCallback(
     (email: string, answers: { [qId: number]: string }) => {
-      fetch(`${server}/tests`, {
+      fetch(`${process.env.HOST}/tests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +41,7 @@ const Test: React.FC<TestProps> = (props) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Call an external API endpoint to get posts
-  const res = await fetch(`${server}/tests`);
+  const res = await fetch(`${process.env.BUILD_HOST}/tests`);
   const tests: TestModel[] = await res.json();
 
   // Get the paths we want to pre-render based on posts
@@ -61,7 +60,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   const id = Number(context.params['id']);
-  const res = await fetch(`${server}/tests`);
+  const res = await fetch(`${process.env.BUILD_HOST}/tests`);
   const tests: TestModel[] = await res.json();
 
   return { props: { testItem: tests.find((t) => t.id === id) } };
