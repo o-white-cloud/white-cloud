@@ -13,7 +13,7 @@ jobs:
         working-directory: ./white-cloud-ui
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -26,7 +26,7 @@ jobs:
         cache-dependency-path: '/home/runner/work/white-cloud/white-cloud/white-cloud-ui/package-lock.json'
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    #- run: npm test
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
