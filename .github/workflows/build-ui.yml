@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: /home/runner/work/white-cloud/white-cloud/white-cloud-ui
+        working-directory: ./white-cloud-ui
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
@@ -23,6 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: '/home/runner/work/white-cloud/white-cloud/white-cloud-ui/package-lock.json'
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
