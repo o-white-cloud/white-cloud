@@ -41,7 +41,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: white-cloud
-        IMAGE_TAG: ${{ github.sha }}
+        IMAGE_TAG: api-${{ github.sha }}
       run: |
         docker build -f ./white-cloud.web/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
