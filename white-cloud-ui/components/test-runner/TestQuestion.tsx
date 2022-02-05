@@ -34,7 +34,7 @@ const SingleChoiceAnswers: React.FC<TestQuestionProps<ChoiceQuestion>> = (
   const { question } = props;
   return (
     <Controller
-      name={`questions.${question.id}`}
+      name={`questions.${question.id}` as any}
       control={props.formControl}
       rules={{
         required: {

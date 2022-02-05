@@ -63,7 +63,7 @@ const TestRunner: React.FC<TestRunnerProps> = (props) => {
         });
       }
     }
-  }, [errors.email, errors.questions]);
+  }, [errors, errors.email, errors.questions]);
 
   return (
     <RootDiv>
