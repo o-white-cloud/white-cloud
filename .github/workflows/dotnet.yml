@@ -1,4 +1,4 @@
-name: .NET
+name: dotnet white-cloud api
 
 on:
   push:
