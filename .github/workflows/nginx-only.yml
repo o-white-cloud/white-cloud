@@ -1,4 +1,4 @@
-name: nodejs white-cloud-ui
+name: nginx only
 
 on:
   push:
