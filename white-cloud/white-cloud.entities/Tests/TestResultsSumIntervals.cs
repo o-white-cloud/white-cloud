@@ -1,4 +1,4 @@
-﻿namespace white_cloud.web.Models.Tests
+﻿namespace white_cloud.entities.Tests
 {
     public class TestResultsSumIntervals : TestResultsBase
     {

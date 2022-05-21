@@ -4,14 +4,153 @@
     "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\white-cloud.web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\white-cloud.web.csproj": {
+    "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.data\\white-cloud.data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\white-cloud.web.csproj",
-        "projectName": "white-cloud.web",
-        "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\white-cloud.web.csproj",
+        "projectUniqueName": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.data\\white-cloud.data.csproj",
+        "projectName": "white-cloud.data",
+        "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.data\\white-cloud.data.csproj",
         "packagesPath": "C:\\Users\\alexz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\obj\\",
+        "outputPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\alexz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\white-cloud.entities.csproj": {
+                "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\white-cloud.entities.csproj"
+              },
+              "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.interfaces\\white-cloud.interfaces.csproj": {
+                "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.interfaces\\white-cloud.interfaces.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.2-mauipre.1.22054.8, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.2-mauipre.1.22054.8, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\white-cloud.entities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\white-cloud.entities.csproj",
+        "projectName": "white-cloud.entities",
+        "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\white-cloud.entities.csproj",
+        "packagesPath": "C:\\Users\\alexz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\alexz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.identity\\white-cloud.identity.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.identity\\white-cloud.identity.csproj",
+        "projectName": "white-cloud.identity",
+        "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.identity\\white-cloud.identity.csproj",
+        "packagesPath": "C:\\Users\\alexz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.identity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -43,9 +182,205 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "IdentityModel": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.Extensions.Identity.Core": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.17.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.interfaces\\white-cloud.interfaces.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.interfaces\\white-cloud.interfaces.csproj",
+        "projectName": "white-cloud.interfaces",
+        "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.interfaces\\white-cloud.interfaces.csproj",
+        "packagesPath": "C:\\Users\\alexz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.interfaces\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\alexz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\white-cloud.entities.csproj": {
+                "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\white-cloud.entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.2-mauipre.1.22054.8, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.2-mauipre.1.22054.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\white-cloud.web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\white-cloud.web.csproj",
+        "projectName": "white-cloud.web",
+        "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\white-cloud.web.csproj",
+        "packagesPath": "C:\\Users\\alexz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\alexz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.data\\white-cloud.data.csproj": {
+                "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.data\\white-cloud.data.csproj"
+              },
+              "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.identity\\white-cloud.identity.csproj": {
+                "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.identity\\white-cloud.identity.csproj"
+              },
+              "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.interfaces\\white-cloud.interfaces.csproj": {
+                "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.interfaces\\white-cloud.interfaces.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
             "Google.Apis.Gmail.v1": {
               "target": "Package",
               "version": "[1.55.0.2510, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.5, )"
             },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",

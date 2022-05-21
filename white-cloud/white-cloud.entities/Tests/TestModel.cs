@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace white_cloud.web.Models.Tests
+namespace white_cloud.entities.Tests
 {
     public class TestModel
     {

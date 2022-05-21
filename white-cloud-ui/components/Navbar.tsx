@@ -1,10 +1,11 @@
+import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 
 import Link from './Link';
 
 interface NavbarProps {
-    navLinks: {title: string, path: string}[]
+  navLinks: { title: string; path: string }[];
 }
 const Navbar = (props: NavbarProps) => {
   return (
@@ -25,6 +26,7 @@ const Navbar = (props: NavbarProps) => {
             {l.title}
           </Link>
         ))}
+        <Button variant='text' color='inherit' href='/login'>Login</Button>
       </Stack>
     </Toolbar>
   );

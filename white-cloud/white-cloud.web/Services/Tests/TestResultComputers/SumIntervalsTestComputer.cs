@@ -1,4 +1,4 @@
-﻿using white_cloud.web.Models.Tests;
+﻿using white_cloud.entities.Tests;
 
 namespace white_cloud.web.Services.Tests.TestResultComputers;
 
@@ -26,8 +26,8 @@ public class SumIntervalsTestComputer : ITestResultComputer
         var interval = results.Intervals.OrderBy(i => i.Max).FirstOrDefault(x => x.Min <= finalResult && finalResult <= x.Max);
         if (interval is null)
         {
-            return Task.FromResult(new TestSubmissionResult {  ResultDescription = "Could not find proper interval", ResultName = "Error"});
+            return Task.FromResult(new TestSubmissionResult {  Description = "Could not find proper interval", Title = "Error"});
         }
-        return Task.FromResult(new TestSubmissionResult { ResultDescription = interval.Details, ResultName = interval.Name });
+        return Task.FromResult(new TestSubmissionResult { Description = interval.Details, Title = interval.Name });
     }
 }

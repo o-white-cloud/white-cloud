@@ -1,0 +1,19 @@
+version: "3"
+services:
+    api:
+        container_name: api
+        image: 820088571159.dkr.ecr.eu-central-1.amazonaws.com/white-cloud:f240cb1e4dfd3f6cb1d547f1aefcc7cd194df35f
+        volumes:
+            - test_files:/test_files
+        environment:
+            - ASPNET_ENVIRONMENT=prod
+    nextjs:
+        container_name: nextjs
+        image: 820088571159.dkr.ecr.eu-central-1.amazonaws.com/white-cloud:ui-5a412a6802864301ac9ce2c968de8e9a9b4d6aab
+    nginx:
+        container_name: nginx
+        image: 820088571159.dkr.ecr.eu-central-1.amazonaws.com/white-cloud:nginx-5a412a6802864301ac9ce2c968de8e9a9b4d6aab
+        ports:
+            - "80:80"
+volumes:
+    test_files:

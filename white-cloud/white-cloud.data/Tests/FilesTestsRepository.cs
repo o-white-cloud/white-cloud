@@ -1,8 +1,10 @@
-﻿using white_cloud.web.Models.Tests;
+﻿using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using white_cloud.entities.Tests;
+using white_cloud.interfaces.Data;
 
-namespace white_cloud.web.Data
+namespace white_cloud.data.Tests
 {
     public class FilesTestsRepository : ITestsRepository
     {

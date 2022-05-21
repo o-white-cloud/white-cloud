@@ -1,4 +1,4 @@
-﻿using white_cloud.web.Models.Tests;
+﻿using white_cloud.entities.Tests;
 
 namespace white_cloud.web.Services.Tests
 {
