@@ -50,17 +50,13 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.Extensions.Configuration.Abstractions": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.2-mauipre.1.22054.8, )"
-            },
-            "Microsoft.Extensions.DependencyInjection.Abstractions": {
-              "target": "Package",
-              "version": "[6.0.2-mauipre.1.22054.8, )"
+              "version": "[6.0.5, )"
             },
             "Microsoft.Extensions.Logging.Abstractions": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -124,6 +120,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[6.0.5, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -169,7 +171,14 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.data\\white-cloud.data.csproj": {
+                "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.data\\white-cloud.data.csproj"
+              },
+              "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\white-cloud.entities.csproj": {
+                "projectPath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.entities\\white-cloud.entities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -194,21 +203,7 @@
               "target": "Package",
               "version": "[6.0.5, )"
             },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[6.0.5, )"
-            },
-            "Microsoft.Extensions.Configuration.Abstractions": {
-              "target": "Package",
-              "version": "[6.0.0, )"
-            },
             "Microsoft.Extensions.Configuration.Binder": {
-              "target": "Package",
-              "version": "[6.0.0, )"
-            },
-            "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
               "version": "[6.0.0, )"
             },
@@ -244,6 +239,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

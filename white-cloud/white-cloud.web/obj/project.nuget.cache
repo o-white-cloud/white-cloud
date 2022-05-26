@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "uGdCt1KLWqHzBRaaZsjPWVxvCWJ63LzygcDQezv0E3oFyB1MzjEoF091vhuFadxX/x4yIf6t59+WT1pPMAnINA==",
+  "dgSpecHash": "izKfp0/bPEx4fyr22Jb0Yh2z3TD7BoUD15cBAsY7IM7txY/+ctxbV4RcZdZdbeHXyndytWL7i0/lzgYCnK1SdQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\alexz\\Projects\\white-cloud\\white-cloud\\white-cloud.web\\white-cloud.web.csproj",
   "expectedPackageFiles": [
@@ -47,7 +47,7 @@
     "C:\\Users\\alexz\\.nuget\\packages\\microsoft.extensions.identity.core\\6.0.5\\microsoft.extensions.identity.core.6.0.5.nupkg.sha512",
     "C:\\Users\\alexz\\.nuget\\packages\\microsoft.extensions.identity.stores\\6.0.5\\microsoft.extensions.identity.stores.6.0.5.nupkg.sha512",
     "C:\\Users\\alexz\\.nuget\\packages\\microsoft.extensions.logging\\6.0.0\\microsoft.extensions.logging.6.0.0.nupkg.sha512",
-    "C:\\Users\\alexz\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\alexz\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.1\\microsoft.extensions.logging.abstractions.6.0.1.nupkg.sha512",
     "C:\\Users\\alexz\\.nuget\\packages\\microsoft.extensions.objectpool\\2.2.0\\microsoft.extensions.objectpool.2.2.0.nupkg.sha512",
     "C:\\Users\\alexz\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\alexz\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.2-mauipre.1.22054.8\\microsoft.extensions.primitives.6.0.2-mauipre.1.22054.8.nupkg.sha512",

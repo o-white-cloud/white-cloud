@@ -1,4 +1,5 @@
 ﻿using white_cloud.entities.Tests;
+using white_cloud.entities.Tests.Models;
 using white_cloud.interfaces.Data;
 
 namespace white_cloud.web.Services.Tests
@@ -16,7 +17,7 @@ namespace white_cloud.web.Services.Tests
             _testResultsRepository = testResultsRepository;
         }
 
-        public async Task<TestSubmissionResult> ComputeTestResults(string email, TestModel test, Dictionary<int, string> answers)
+        public async Task<TestSubmissionResultModel> ComputeTestResults(string email, TestModel test, TestSubmissionAnswer[] answers)
         {
             _logger.LogInformation("Computing results for test {id} for user {email}", test.Id, email);
             var computer = _testResultComputers.FirstOrDefault(c => c.Strategy == test.Results.Strategy);
@@ -28,9 +29,7 @@ namespace white_cloud.web.Services.Tests
 
             await _testResultsRepository.InsertTestSubmission(new TestSubmission
             {
-                Email = email,
                 Answers = answers,
-                Result = results,
                 TestId = test.Id,
                 Timestamp = DateTime.Now
             });

@@ -2,7 +2,6 @@
 using Google.Apis.Gmail.v1.Data;
 using Google.Apis.Services;
 using MimeKit;
-using System.Text;
 using white_cloud.web.Models.Settings;
 
 namespace white_cloud.web.Services

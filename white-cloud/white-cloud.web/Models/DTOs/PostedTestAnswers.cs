@@ -1,9 +1,11 @@
-﻿namespace white_cloud.web.Models.DTOs
+﻿using white_cloud.entities.Tests;
+
+namespace white_cloud.web.Models.DTOs
 {
     public class PostedTestAnswers
     {
         public string Email { get; set; } = "";
         public int TestId { get; set; }
-        public Dictionary<int, string> Answers { get; set; } = new Dictionary<int, string>();
+        public TestSubmissionAnswer[] Answers { get; set; } = new TestSubmissionAnswer[] { };
     }
 }

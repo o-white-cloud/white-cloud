@@ -1,10 +1,11 @@
 ﻿using white_cloud.entities.Tests;
+using white_cloud.entities.Tests.Models;
 
 namespace white_cloud.web.Services.Tests
 {
     public interface ITestResultComputer
     {
         TestResultStrategy Strategy { get; }
-        Task<TestSubmissionResult> GetResult(TestModel model, Dictionary<int, string> answers);
+        Task<TestSubmissionResultModel> GetResult(TestModel model, TestSubmissionAnswer[] answers);
     }
 }

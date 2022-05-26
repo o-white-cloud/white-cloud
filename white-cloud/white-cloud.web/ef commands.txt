@@ -1,2 +1,3 @@
-dotnet ef migrations add UserMigration --project ..\white-cloud.identity\white-cloud.identity.csproj
-dotnet ef database update --project ..\white-cloud.identity\white-cloud.identity.csproj
+dotnet ef migrations add Initial --context WCDbContext --project ..\white-cloud.data\white-cloud.data.csproj
+dotnet ef database update --context WCDbContext --project ..\white-cloud.data\white-cloud.data.csproj
+

@@ -5,6 +5,7 @@ using white_cloud.web.Services;
 using white_cloud.interfaces.Data;
 using white_cloud.entities.Tests;
 using Microsoft.AspNetCore.Authorization;
+using white_cloud.entities.Tests.Models;
 
 namespace white_cloud.web.controllers
 {
