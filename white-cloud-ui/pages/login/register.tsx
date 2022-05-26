@@ -1,3 +1,4 @@
+import { PageContainer } from 'components/PageContainer';
 import { Login } from 'components/user/Login';
 import { OpenIdLogin } from 'components/user/OpenIdLogin';
 import { Register, RegisterFormData } from 'components/user/Register';
@@ -6,8 +7,6 @@ import { useCallback, useState } from 'react';
 import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 
 const RegisterPage = () => {
   const [registerComplete, setRegisterComplete] = useState(false);
@@ -26,7 +25,7 @@ const RegisterPage = () => {
   }, []);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <PageContainer>
       <Card>
         <CardContent>
           {!registerComplete && <Register signInUrl="/login" onRegister={onRegister} />}
@@ -36,7 +35,7 @@ const RegisterPage = () => {
           </>)}
         </CardContent>
       </Card>
-    </Container>
+    </PageContainer>
   );
 };
 

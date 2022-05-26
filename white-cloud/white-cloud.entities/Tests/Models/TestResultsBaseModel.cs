@@ -1,6 +1,6 @@
-﻿namespace white_cloud.entities.Tests
+﻿namespace white_cloud.entities.Tests.Models
 {
-    public class TestResultsBase
+    public class TestResultsBaseModel
     {
         public TestResultStrategy Strategy { get; set; }
     }

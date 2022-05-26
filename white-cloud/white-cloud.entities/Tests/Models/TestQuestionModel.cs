@@ -1,11 +1,11 @@
-﻿namespace white_cloud.entities.Tests
+﻿namespace white_cloud.entities.Tests.Models
 {
-    public class TestQuestion
+    public class TestQuestionModel
     {
         public int Id { get; set; }
         public string Title { get; set; } = "";
         public TestQuestionType Type { get; set; }
-        public List<TestQuestionAnswer> Answers { get; set; } = new List<TestQuestionAnswer>();
+        public List<TestQuestionAnswerModel> Answers { get; set; } = new List<TestQuestionAnswerModel>();
     }
 
     public enum TestQuestionType

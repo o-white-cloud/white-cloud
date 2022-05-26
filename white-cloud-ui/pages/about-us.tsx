@@ -1,10 +1,10 @@
-import Container from '@mui/material/Container';
+import { PageContainer } from 'components/PageContainer';
 
 const AboutUs = () => {
   return (
-    <Container maxWidth="sm">
+    <PageContainer>
       <h1>About us page</h1>
-    </Container>
+    </PageContainer>
   );
 };
 

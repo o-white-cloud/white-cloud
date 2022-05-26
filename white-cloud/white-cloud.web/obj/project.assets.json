@@ -1960,7 +1960,8 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.4",
           "System.IdentityModel.Tokens.Jwt": "6.17.0",
           "white-cloud.data": "1.0.0",
-          "white-cloud.entities": "1.0.0"
+          "white-cloud.entities": "1.0.0",
+          "white-cloud.interfaces": "1.0.0"
         },
         "compile": {
           "bin/placeholder/white-cloud.identity.dll": {}

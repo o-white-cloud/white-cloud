@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace white_cloud.identity.Entities
+namespace white_cloud.entities
 {
     public static class Roles
     {

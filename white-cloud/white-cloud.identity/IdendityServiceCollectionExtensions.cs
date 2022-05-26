@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using white_cloud.identity.Entities;
+using white_cloud.data.EF;
+using white_cloud.entities;
+using white_cloud.identity.Tokens;
 
 namespace white_cloud.identity
 {
@@ -13,19 +14,15 @@ namespace white_cloud.identity
         {
 
             var migrationAssembly = typeof(User).GetTypeInfo().Assembly.GetName().Name;
-            services.AddDbContext<UserDbContext>(options =>
-            {
-                options.UseNpgsql(configuration.GetConnectionString("postgres"), npgOptions =>
-                {
-                    npgOptions.MigrationsAssembly(migrationAssembly);
-                });
-            });
+            
             services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;
             })
-                .AddEntityFrameworkStores<UserDbContext>()
-                .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<WCDbContext>()
+                .AddDefaultTokenProviders()
+                .AddTokenProvider<InviteUserTokenProvider>(InviteUserTokenProvider.TokenType);
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, ExtendedUserClaimsPrincipalFactory>();
             services.ConfigureApplicationCookie(options => options.LoginPath = "/login");
             services.AddTransient<IdentitySeeder>();
         }

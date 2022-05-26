@@ -31,7 +31,7 @@ namespace white_cloud.web.Services.Tests
             {
                 Answers = answers,
                 TestId = test.Id,
-                Timestamp = DateTime.Now
+                Timestamp = DateTime.UtcNow
             });
             return results;
         }

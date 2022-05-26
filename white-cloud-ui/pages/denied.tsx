@@ -1,10 +1,10 @@
-import Container from '@mui/material/Container';
+import { PageContainer } from 'components/PageContainer';
 
 const Denied = () => {
   return (
-    <Container maxWidth="sm">
+    <PageContainer maxWidth="sm">
       <h3>Access denied</h3>
-    </Container>
+    </PageContainer>
   );
 };
 

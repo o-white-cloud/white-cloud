@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -23,36 +23,52 @@ export interface RegisterFormData {
   accountType: AccountType;
 }
 
-export enum AccountType
-{
+export enum AccountType {
   Personal = 1,
-  Therapist = 2
+  Therapist = 2,
 }
 
 export interface RegisterProps {
   onRegister: (data: RegisterFormData) => {};
+  email?: string;
+  inviteById?: string;
   signInUrl: string;
 }
 export const Register: React.FC<RegisterProps> = (props) => {
-  const { onRegister, signInUrl } = props;
-  const [accountType, setAccountType] = useState<AccountType>(AccountType.Personal);
+  const { onRegister, signInUrl, email, inviteById } = props;
+  const [accountType, setAccountType] = useState<AccountType>(
+    AccountType.Personal
+  );
   const {
     control,
+    reset,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     defaultValues: {
       firstName: '',
       lastName: '',
-      email: '',
+      email: email ? email : '',
       password: '',
-      accountType: AccountType.Personal
+      accountType: AccountType.Personal,
     },
   });
 
+  useEffect(() => {
+    if(email) {
+      reset({
+        firstName: '',
+        lastName: '',
+        email: email,
+        password: '',
+        accountType: AccountType.Personal,
+      })
+    }
+  }, [email]);
+
   const onFormSubmit = useCallback<SubmitHandler<RegisterFormData>>(
     (data) => {
-      onRegister({...data, accountType: accountType});
+      onRegister({ ...data, accountType: accountType });
     },
     [onRegister]
   );
@@ -81,30 +97,32 @@ export const Register: React.FC<RegisterProps> = (props) => {
       <form onSubmit={handleSubmit(onFormSubmit)}>
         <Box sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} direction="row">
-              <RadioGroup
-                aria-labelledby="account-type"
-                defaultValue={AccountType.Personal}
-                onChange={onAccountTypeChange}
-                name="account-type-radio-buttons-group"
-                sx={{ flexDirection: 'row' }}
-              >
-                <Grid item xs={6}>
-                  <FormControlLabel
-                    value={AccountType.Personal}
-                    control={<Radio />}
-                    label="Personal"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <FormControlLabel
-                    value={AccountType.Therapist}
-                    control={<Radio />}
-                    label="Psiholog"
-                  />
-                </Grid>
-              </RadioGroup>
-            </Grid>
+            {!email && (
+              <Grid item xs={12} direction="row">
+                <RadioGroup
+                  aria-labelledby="account-type"
+                  defaultValue={AccountType.Personal}
+                  onChange={onAccountTypeChange}
+                  name="account-type-radio-buttons-group"
+                  sx={{ flexDirection: 'row' }}
+                >
+                  <Grid item xs={6}>
+                    <FormControlLabel
+                      value={AccountType.Personal}
+                      control={<Radio />}
+                      label="Personal"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <FormControlLabel
+                      value={AccountType.Therapist}
+                      control={<Radio />}
+                      label="Psiholog"
+                    />
+                  </Grid>
+                </RadioGroup>
+              </Grid>
+            )}
             <Grid item xs={12} sm={6}>
               <Controller
                 name="firstName"
@@ -153,6 +171,8 @@ export const Register: React.FC<RegisterProps> = (props) => {
                     required
                     {...field}
                     fullWidth
+                    disabled={email !== undefined}
+                    InputProps={{ readOnly: email !== undefined }}
                     id="email"
                     label="Email"
                     autoComplete="email"

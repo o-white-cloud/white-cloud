@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using white_cloud.entities.Tests;
+using white_cloud.entities.Tests.Models;
 using white_cloud.interfaces.Data;
 
 namespace white_cloud.data.Tests
@@ -53,7 +54,7 @@ namespace white_cloud.data.Tests
         }
     }
 
-    class TestResultsJsonConverter : JsonConverter<TestResultsBase>
+    class TestResultsJsonConverter : JsonConverter<TestResultsBaseModel>
     {
         private readonly bool _deserializeResults;
 
@@ -62,7 +63,7 @@ namespace white_cloud.data.Tests
             _deserializeResults = deserializeResults;
         }
 
-        public override TestResultsBase Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override TestResultsBaseModel Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
 
             if (reader.TokenType != JsonTokenType.StartObject)
@@ -74,25 +75,25 @@ namespace white_cloud.data.Tests
             {
                 if (!_deserializeResults)
                 {
-                    return new TestResultsBase();
+                    return new TestResultsBaseModel();
                 }
-                if (!jsonDocument.RootElement.TryGetProperty(nameof(TestResultsBase.Strategy).ToLowerInvariant(), out var strategyProperty))
-                    return new TestResultsBase();
+                if (!jsonDocument.RootElement.TryGetProperty(nameof(TestResultsBaseModel.Strategy).ToLowerInvariant(), out var strategyProperty))
+                    return new TestResultsBaseModel();
 
                 var resultStrategy = Enum.Parse<TestResultStrategy>(strategyProperty.GetString() ?? "");
-                var resultsObject = new TestResultsBase();
+                var resultsObject = new TestResultsBaseModel();
                 switch (resultStrategy)
                 {
-                    case TestResultStrategy.SumIntervals: resultsObject = JsonSerializer.Deserialize<TestResultsSumIntervals>(jsonDocument, options); break;
+                    case TestResultStrategy.SumIntervals: resultsObject = JsonSerializer.Deserialize<TestResultsSumIntervalsModel>(jsonDocument, options); break;
                 }
 
-                return resultsObject ?? new TestResultsBase();
+                return resultsObject ?? new TestResultsBaseModel();
             }
         }
 
-        public override void Write(Utf8JsonWriter writer, TestResultsBase value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, TestResultsBaseModel value, JsonSerializerOptions options)
         {
-            JsonSerializer.Serialize(writer, new TestResultsBase(), options);
+            JsonSerializer.Serialize(writer, new TestResultsBaseModel(), options);
         }
     }
 }

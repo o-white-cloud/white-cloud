@@ -1,15 +1,15 @@
+import { PageContainer } from 'components/PageContainer';
 import { Login, useLogin } from 'components/user/Login';
-import { useCallback } from 'react';
 
 import { CardContent } from '@mui/material';
 import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 
 const LoginPage = () => {
-  const [onLogin, loginError] = useLogin(`${process.env.NEXT_PUBLIC_HOST}/authentication/login`, '/');
+  const [onLogin, loginError] = useLogin(`${process.env.NEXT_PUBLIC_HOST}/authentication/login`, '/user');
   
   return (
-    <Container component="main" maxWidth="md">
+    <PageContainer>
       <Card>
         <CardContent>
           <Login
@@ -20,7 +20,7 @@ const LoginPage = () => {
           />
         </CardContent>
       </Card>
-    </Container>
+    </PageContainer>
   );
 };
 

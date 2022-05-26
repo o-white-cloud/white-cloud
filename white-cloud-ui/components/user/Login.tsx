@@ -1,4 +1,5 @@
 import Link from 'components/Link';
+import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
@@ -31,6 +32,7 @@ export const useLogin = (
   redirectUrl: string
 ): [(email: string, password: string, rememberMe: boolean) => void, string | undefined] => {
   const [loginError, setLoginError] = useState<string>();
+  const router = useRouter();
 
   const onLogin = useCallback(
     async (email: string, password: string, rememberMe: boolean) => {
@@ -46,7 +48,7 @@ export const useLogin = (
         }),
       });
       if (response.ok) {
-        window.location.assign(redirectUrl);
+        router.push(redirectUrl);
         return;
       }
 
@@ -55,7 +57,7 @@ export const useLogin = (
         return;
       }
     },
-    []
+    [router]
   );
   return [onLogin, loginError];
 };

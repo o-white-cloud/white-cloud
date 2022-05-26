@@ -1,6 +1,6 @@
-﻿namespace white_cloud.entities.Tests
+﻿namespace white_cloud.entities.Tests.Models
 {
-    public class TestQuestionAnswer
+    public class TestQuestionAnswerModel
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";

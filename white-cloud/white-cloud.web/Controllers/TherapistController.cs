@@ -5,6 +5,7 @@ using System.Security.Claims;
 using white_cloud.entities;
 using white_cloud.identity.Tokens;
 using white_cloud.interfaces.Data;
+using white_cloud.web.Models.DTOs;
 using white_cloud.web.Services;
 
 namespace white_cloud.web.Controllers
@@ -39,7 +40,7 @@ namespace white_cloud.web.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var therapist = await _therapistsRepository.Get(user.Id);
-            if(therapist == null)
+            if (therapist == null)
             {
                 _logger.LogError("Could not find therapist for the user with id {id}", user.Id);
                 return NotFound("Could not find therapist for the user");
@@ -53,7 +54,7 @@ namespace white_cloud.web.Controllers
             {
                 TherapistId = therapist.Id,
                 Email = email,
-                SentDate = DateTime.Now.ToUniversalTime(),
+                SentDate = DateTime.UtcNow,
             };
             invite = await _therapistsRepository.InsertClientInvite(invite);
             return Ok(invite);
@@ -63,7 +64,7 @@ namespace white_cloud.web.Controllers
         public async Task<IActionResult> GetInvites()
         {
             var therapist = await GetTherapistFromContext();
-            if(therapist == null)
+            if (therapist == null)
             {
                 return NotFound("Could not find therapist");
             }
@@ -79,7 +80,16 @@ namespace white_cloud.web.Controllers
             {
                 return NotFound("Could not find therapist");
             }
-            var clients = await _therapistsRepository.GetClients(therapist.Id);
+            var clientEntities = await _therapistsRepository.GetClients(therapist.Id);
+            var clients = clientEntities.Select(x => new ClientDto
+            {
+                ClientDate = x.ClientDate,
+                Id = x.Id,
+                UserId = x.UserId,
+                Email = x.User.Email,
+                FirstName = x.User.FirstName,
+                LastName = x.User.LastName
+            });
             return Ok(clients);
         }
 

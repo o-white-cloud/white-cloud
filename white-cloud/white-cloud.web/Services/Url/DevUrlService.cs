@@ -27,11 +27,7 @@ namespace white_cloud.web.Services
 
         public string GetResetPasswordUrl(IUrlHelper urlHelper, string token, string email, string scheme)
         {
-            var url = urlHelper.ActionLink("resetPassword", "login", new { token, email }, scheme, "localhost:3000");
-            if (url == null)
-            {
-                throw new Exception("Generated password reset url is null");
-            }
+            var url = $"http://localhost:3000/login/resetPassword?token={token}&email={email}";
             return url;
         }
     }

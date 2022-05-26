@@ -1,3 +1,4 @@
+import { PageContainer } from 'components/PageContainer';
 import TestRunner from 'components/test-runner/TestRunner';
 import parse from 'html-react-parser';
 import { TestModel } from 'models';
@@ -32,11 +33,11 @@ const Test: React.FC<TestProps> = (props) => {
     [testItem]
   );
   return (
-    <Container sx={{marginTop: 4}}>
+    <PageContainer>
       <Typography variant="h2">{testItem.name}</Typography>
       <Box sx={{ typography: 'body1' }}>{parse(testItem.description)}</Box>
       <TestRunner testItem={testItem} onSubmit={onTestSubmit} />
-    </Container>
+    </PageContainer>
   );
 };
 

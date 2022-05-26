@@ -1,3 +1,4 @@
+import { PageContainer } from 'components/PageContainer';
 import { ResetPassword } from 'components/user/ResetPassword';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -48,14 +49,14 @@ const ForgotPasswordPage = () => {
   );
 
   return (
-    <Container component="main" maxWidth="md">
+    <PageContainer>
       <Card>
         <CardContent>
           <ResetPassword onSubmit={onSubmit} />
           {errors.length > 0 && errors.map((e) => <p>{e}</p>)}
         </CardContent>
       </Card>
-    </Container>
+    </PageContainer>
   );
 };
 

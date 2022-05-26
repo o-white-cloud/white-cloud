@@ -1,12 +1,13 @@
+import { PageContainer } from 'components/PageContainer';
+
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 
 const EmailConfirmed = () => {
   return (
-    <Container component="main" maxWidth="md">
+    <PageContainer>
       Email-ul a fost confirmat!
       Acceseaza-ti pagina ta apasand acest buton {<Button>Pagina mea</Button>}
-    </Container>
+    </PageContainer>
   );
 };
 

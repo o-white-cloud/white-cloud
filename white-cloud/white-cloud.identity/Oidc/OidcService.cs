@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using white_cloud.identity.Entities;
+using white_cloud.entities;
 
 namespace white_cloud.identity
 {

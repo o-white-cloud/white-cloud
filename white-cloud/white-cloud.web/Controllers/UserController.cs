@@ -125,6 +125,7 @@ namespace white_cloud.web.Controllers
                     UserName = registerUserModel.Email,
                     FirstName = registerUserModel.FirstName,
                     LastName = registerUserModel.LastName,
+                    EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user, registerUserModel.Password);
                 if (!result.Succeeded)

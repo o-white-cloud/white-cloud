@@ -2,18 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using white_cloud.identity;
+using white_cloud.data.EF;
+using white_cloud.entities.Tests;
 
 #nullable disable
 
-namespace white_cloud.identity.Migrations
+namespace white_cloud.data.Migrations
 {
-    [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(WCDbContext))]
+    [Migration("20220526175126_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,7 +157,132 @@ namespace white_cloud.identity.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("white_cloud.identity.Entities.Therapist", b =>
+            modelBuilder.Entity("white_cloud.entities.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ClientDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TherapistId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TherapistId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.ClientInvite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("AcceptedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TherapistId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TherapistId");
+
+                    b.ToTable("ClientInvites");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Tests.TestRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("SendEmailOnSubmission")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("SubmissionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TherapistId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("TherapistId");
+
+                    b.ToTable("TestRequests");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Tests.TestSubmission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<TestSubmissionAnswer[]>("Answers")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<object>("ResultData")
+                        .HasColumnType("jsonb");
+
+                    b.Property<int>("ResultId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("TestRequestId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestRequestId")
+                        .IsUnique();
+
+                    b.ToTable("TestSubmissions");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Therapist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,12 +294,18 @@ namespace white_cloud.identity.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Therapists", (string)null);
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Therapists");
                 });
 
-            modelBuilder.Entity("white_cloud.identity.Entities.User", b =>
+            modelBuilder.Entity("white_cloud.entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -189,6 +323,14 @@ namespace white_cloud.identity.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -216,9 +358,6 @@ namespace white_cloud.identity.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
-                    b.Property<int?>("TherapistId")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
@@ -235,9 +374,6 @@ namespace white_cloud.identity.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.HasIndex("TherapistId")
-                        .IsUnique();
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -252,7 +388,7 @@ namespace white_cloud.identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("white_cloud.identity.Entities.User", null)
+                    b.HasOne("white_cloud.entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -261,7 +397,7 @@ namespace white_cloud.identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("white_cloud.identity.Entities.User", null)
+                    b.HasOne("white_cloud.entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -276,7 +412,7 @@ namespace white_cloud.identity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("white_cloud.identity.Entities.User", null)
+                    b.HasOne("white_cloud.entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -285,18 +421,92 @@ namespace white_cloud.identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("white_cloud.identity.Entities.User", null)
+                    b.HasOne("white_cloud.entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("white_cloud.identity.Entities.User", b =>
+            modelBuilder.Entity("white_cloud.entities.Client", b =>
                 {
-                    b.HasOne("white_cloud.identity.Entities.Therapist", null)
-                        .WithOne()
-                        .HasForeignKey("white_cloud.identity.Entities.User", "TherapistId");
+                    b.HasOne("white_cloud.entities.Therapist", "Therapist")
+                        .WithMany("Clients")
+                        .HasForeignKey("TherapistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("white_cloud.entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Therapist");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.ClientInvite", b =>
+                {
+                    b.HasOne("white_cloud.entities.Therapist", "Therapist")
+                        .WithMany("ClientInvites")
+                        .HasForeignKey("TherapistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Therapist");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Tests.TestRequest", b =>
+                {
+                    b.HasOne("white_cloud.entities.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("white_cloud.entities.Therapist", "Therapist")
+                        .WithMany()
+                        .HasForeignKey("TherapistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Therapist");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Tests.TestSubmission", b =>
+                {
+                    b.HasOne("white_cloud.entities.Tests.TestRequest", "TestRequest")
+                        .WithOne("TestSubmission")
+                        .HasForeignKey("white_cloud.entities.Tests.TestSubmission", "TestRequestId");
+
+                    b.Navigation("TestRequest");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Therapist", b =>
+                {
+                    b.HasOne("white_cloud.entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Tests.TestRequest", b =>
+                {
+                    b.Navigation("TestSubmission");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Therapist", b =>
+                {
+                    b.Navigation("ClientInvites");
+
+                    b.Navigation("Clients");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 ﻿
 using white_cloud.entities.Tests;
+using white_cloud.entities.Tests.Models;
 
 namespace white_cloud.interfaces.Data
 {

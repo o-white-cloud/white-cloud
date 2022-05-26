@@ -57,6 +57,13 @@ namespace white_cloud.web.Controllers
             return Unauthorized("Invalid email or password");
         }
 
+        [HttpGet("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return Ok();
+        }
+
         [AllowAnonymous]
         [HttpGet("oidc/authUrl/{provider}")]
         public async Task<IActionResult> GetCodeFlowUrl(string provider)

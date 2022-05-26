@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace white_cloud.entities.Tests
+﻿namespace white_cloud.entities.Tests.Models
 {
     public class TestModel
     {
@@ -9,8 +7,8 @@ namespace white_cloud.entities.Tests
         public string Icon { get; set; } = "test";
         public string Excerpt { get; set; } = "";
         public string Description { get; set; } = "";
-        public List<TestQuestion> Questions { get; set; } = new List<TestQuestion>();
+        public List<TestQuestionModel> Questions { get; set; } = new List<TestQuestionModel>();
         
-        public TestResultsBase Results { get; set; } = new TestResultsBase();
+        public TestResultsBaseModel Results { get; set; } = new TestResultsBaseModel();
     }
 }

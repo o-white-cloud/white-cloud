@@ -1,16 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
-using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using white_cloud.entities.Tests;
 using white_cloud.interfaces.Data;
 
 namespace white_cloud.data.Tests
 {
-    internal class TestSubmissionsRepository : ITestSubmissionsRepository
+    public class TestSubmissionsRepository : ITestSubmissionsRepository
     {
         private readonly ILogger<TestSubmissionsRepository> _logger;
 

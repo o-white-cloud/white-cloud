@@ -1,10 +1,10 @@
-import Container from '@mui/material/Container';
+import { PageContainer } from 'components/PageContainer';
 
 const Contact = () => {
   return (
-    <Container maxWidth="sm">
+    <PageContainer maxWidth="sm">
       <h1>Contact page</h1>
-    </Container>
+    </PageContainer>
   );
 };
 

@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using white_cloud.identity.Entities;
+using white_cloud.entities;
+using white_cloud.interfaces.Data;
 
 namespace white_cloud.identity
 {
@@ -14,12 +10,14 @@ namespace white_cloud.identity
         private readonly ILogger<IdentitySeeder> _logger;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ITherapistsRepository _therapistsRepository;
 
-        public IdentitySeeder(ILogger<IdentitySeeder> logger, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public IdentitySeeder(ILogger<IdentitySeeder> logger, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ITherapistsRepository therapistsRepository)
         {
             _logger = logger;
             _userManager = userManager;
             _roleManager = roleManager;
+            _therapistsRepository = therapistsRepository;
         }
 
         public async Task Seed()
@@ -27,21 +25,39 @@ namespace white_cloud.identity
             await CreateRole(Roles.Therapist);
             await CreateRole(Roles.Admin);
 
-           var admin = await _userManager.CreateAsync(new User()
+            await CreateAdminUser();
+        }
+
+        private async Task CreateAdminUser()
+        {
+            var adminUser = new User()
             {
-                Email = "alex.zero.a@gmail.com",
+                Email = "office@white-cloud.ro",
+                UserName = "office@white-cloud.ro",
+                FirstName = "Marina",
+                LastName = "Otea-Popa",
                 EmailConfirmed = true,
-            }, "Toby_389929");
-            _userManager.AddToRoleAsync(admin, Roles.Admin);
+            };
+            var adminCreateResult = await _userManager.CreateAsync(adminUser, "Toby_389929");
+            if (!adminCreateResult.Succeeded)
+            {
+                _logger.LogError("Could not create admin user: {errors}", string.Join(Environment.NewLine, adminCreateResult.Errors));
+            }
+            await _userManager.AddToRolesAsync(adminUser, new string[] { Roles.Admin, Roles.Therapist });
+            await _therapistsRepository.AddTherapist(new Therapist()
+            {
+                UserId = adminUser.Id,
+                CopsiNumber = "123"
+            });
         }
 
         private async Task CreateRole(string roleName)
         {
-            var role = _roleManager.FindByNameAsync(roleName);
+            var role = await _roleManager.FindByNameAsync(roleName);
             if (role == null)
             {
-                var result = await _roleManager.CreateAsync(new IdentityRole(Roles.Therapist));
-                if(!result.Succeeded)
+                var result = await _roleManager.CreateAsync(new IdentityRole(roleName));
+                if (!result.Succeeded)
                 {
                     _logger.LogError("Could not create role {role}: {error}", roleName, string.Join(Environment.NewLine, result.Errors));
                 }
