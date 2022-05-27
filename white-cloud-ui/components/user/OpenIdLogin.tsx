@@ -13,14 +13,17 @@ enum Idps {
   Facebook = 'facebook',
 }
 
-export const useOpenIdConnect = useCallback(async (provider: string) => {
-  const url = await (
-    await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/authentication/oidc/authUrl/${provider}`
-    )
-  ).text();
-  window.location.assign(url);
-}, []);
+export const useOpenIdConnect = (): [(provider: string) => void] => {
+  const onOidcLogin = useCallback(async (provider: string) => {
+    const url = await (
+      await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/authentication/oidc/authUrl/${provider}`
+      )
+    ).text();
+    window.location.assign(url);
+  }, []);
+  return [onOidcLogin];
+};
 
 export const OpenIdLogin: React.FC<OpenIdLoginProps> = (props) => {
   const { onOidcLogin } = props;

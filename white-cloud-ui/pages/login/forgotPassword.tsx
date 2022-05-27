@@ -22,7 +22,7 @@ const ForgotPasswordPage = () => {
     if(result.ok) {
       router.push("/");
     }
-  }, []);
+  }, [router]);
 
   return (
     <PageContainer>

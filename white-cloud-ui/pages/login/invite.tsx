@@ -16,37 +16,51 @@ const InvitePage = () => {
   const [token, setToken] = useState('');
   const [therapistUserId, setTherapistUserId] = useState('');
   const router = useRouter();
+  
   useEffect(() => {
     setToken((location.search.match(/token=([^&]+)/) || [])[1]);
     setEmail((location.search.match(/email=([^&]+)/) || [])[1]);
-    setTherapistUserId((location.search.match(/therapistUserId=([^&]+)/) || [])[1]);  
-  })
-  
-  const onRegister = useCallback(async (data: RegisterFormData) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/user/registerInvite`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        inviteToken: token,
-        therapistUserId,
-        email,
-        password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName
-      }),
-    });
-    if(response.ok) {
-      router.push('/login');
-    }
-  }, [email, token, therapistUserId]);
+    setTherapistUserId(
+      (location.search.match(/therapistUserId=([^&]+)/) || [])[1]
+    );
+  }, []);
+
+  const onRegister = useCallback(
+    async (data: RegisterFormData) => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/user/registerInvite`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            inviteToken: token,
+            therapistUserId,
+            email,
+            password: data.password,
+            firstName: data.firstName,
+            lastName: data.lastName,
+          }),
+        }
+      );
+      if (response.ok) {
+        router.push('/login');
+      }
+    },
+    [email, token, therapistUserId, router]
+  );
 
   return (
     <PageContainer>
       <Card>
         <CardContent>
-          <Register signInUrl="/login" onRegister={onRegister} email={email} inviteById={therapistUserId}/>
+          <Register
+            signInUrl="/login"
+            onRegister={onRegister}
+            email={email}
+            inviteById={therapistUserId}
+          />
         </CardContent>
       </Card>
     </PageContainer>

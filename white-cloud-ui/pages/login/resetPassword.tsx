@@ -53,7 +53,7 @@ const ForgotPasswordPage = () => {
       <Card>
         <CardContent>
           <ResetPassword onSubmit={onSubmit} />
-          {errors.length > 0 && errors.map((e) => <p>{e}</p>)}
+          {errors.length > 0 && errors.map((e,i) => <p key={i}>{e}</p>)}
         </CardContent>
       </Card>
     </PageContainer>

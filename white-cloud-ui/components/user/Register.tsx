@@ -64,13 +64,13 @@ export const Register: React.FC<RegisterProps> = (props) => {
         accountType: AccountType.Personal,
       })
     }
-  }, [email]);
+  }, [email, reset]);
 
   const onFormSubmit = useCallback<SubmitHandler<RegisterFormData>>(
     (data) => {
       onRegister({ ...data, accountType: accountType });
     },
-    [onRegister]
+    [onRegister, accountType]
   );
 
   const onAccountTypeChange = useCallback(

@@ -30,7 +30,10 @@ interface LoginFormData {
 export const useLogin = (
   loginUrl: string,
   redirectUrl: string
-): [(email: string, password: string, rememberMe: boolean) => void, string | undefined] => {
+): [
+  (email: string, password: string, rememberMe: boolean) => void,
+  string | undefined
+] => {
   const [loginError, setLoginError] = useState<string>();
   const router = useRouter();
 
@@ -57,7 +60,7 @@ export const useLogin = (
         return;
       }
     },
-    [router]
+    [router, loginUrl, redirectUrl]
   );
   return [onLogin, loginError];
 };
