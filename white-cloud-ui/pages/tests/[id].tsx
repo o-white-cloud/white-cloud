@@ -33,7 +33,7 @@ const Test: React.FC<TestProps> = (props) => {
     [testItem]
   );
   return (
-    <PageContainer>
+    <PageContainer sx={{overflow: 'auto'}}>
       <Typography variant="h2">{testItem.name}</Typography>
       <Box sx={{ typography: 'body1' }}>{parse(testItem.description)}</Box>
       <TestRunner testItem={testItem} onSubmit={onTestSubmit} />

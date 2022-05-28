@@ -12,7 +12,7 @@ import { QuestionsData, TestFormData } from './types';
 
 interface TestRunnerProps {
   testItem: TestModel;
-  onSubmit: (email: string, answers: { [qId: number]: string }) => void;
+  onSubmit: (answers: { [qId: number]: string }) => void;
 }
 
 const RootDiv = styled('div')(({ theme }) => ({
@@ -25,7 +25,7 @@ const TestRunner: React.FC<TestRunnerProps> = (props) => {
   const onSubmitInternal = useCallback<SubmitHandler<TestFormData>>(
     (data) => {
       if (onSubmit) {
-        onSubmit(data.email, data.questions);
+        onSubmit(data.questions);
       }
     },
     [onSubmit]
@@ -37,7 +37,6 @@ const TestRunner: React.FC<TestRunnerProps> = (props) => {
     formState: { errors, isSubmitting },
   } = useForm<TestFormData>({
     defaultValues: {
-      email: '',
       questions: testItem.questions.reduce<QuestionsData>((o, q) => {
         o[q.id] = '';
         return o;
@@ -51,9 +50,7 @@ const TestRunner: React.FC<TestRunnerProps> = (props) => {
       if (errors.questions && Object.values(errors.questions).length > 0) {
         const questionId = Object.keys(errors.questions)[0];
         elementName = `questions.${questionId}`;
-      } else if (errors.email) {
-        elementName = 'email';
-      }
+      } 
 
       if (elementName) {
         let firstErrorElement = document.getElementsByName(elementName)[0];
@@ -63,7 +60,7 @@ const TestRunner: React.FC<TestRunnerProps> = (props) => {
         });
       }
     }
-  }, [errors, errors.email, errors.questions]);
+  }, [errors, errors.questions]);
 
   return (
     <RootDiv>
@@ -79,26 +76,9 @@ const TestRunner: React.FC<TestRunnerProps> = (props) => {
           />
         ))}
 
-        <Stack direction="row" spacing={2}>
-          <Controller
-            name="email"
-            control={control}
-            defaultValue=""
-            rules={{ required: { value: true, message: 'Email is required' } }}
-            render={({ field }) => (
-              <TextField
-                label="Email"
-                sx={{ minWidth: 400 }}
-                {...field}
-                helperText={errors.email?.message}
-                error={errors.email !== undefined}
-              />
-            )}
-          />
-          <Button variant="contained" type="submit">
-            Submit
-          </Button>
-        </Stack>
+        <Button variant="contained" type="submit">
+          Submit
+        </Button>
       </form>
     </RootDiv>
   );
