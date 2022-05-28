@@ -2,30 +2,25 @@
 
 namespace white_cloud.web.Services
 {
-    public class DevUrlService : IUrlService
+    public class DevUrlService : UrlServiceBase, IUrlService
     {
-        public string GetConfirmEmailUrl(IUrlHelper urlHelper, string token, string email, string scheme)
-        {
-            var url = urlHelper.ActionLink("confirmEmail", "api/user", new { token, email }, scheme);
-            if (url == null)
-            {
-                throw new Exception("Generated email confirm url is null");
-            }
-            return url;
-        }
+        public DevUrlService(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        { }
+
+        public string GetConfirmEmailUrl(string token, string email) => BuildUrl("api/user/confirmEmail", new { token, email });
 
         public string GetEmailConfirmedUrl()
         {
             return "http://localhost:3000/login/emailConfirmed";
         }
 
-        public string GetInviteUserEmailUrl(IUrlHelper urlHelper, string token, string email, string therapistUserId, string scheme)
+        public string GetInviteUserEmailUrl(string token, string email, string therapistUserId)
         {
             var url = $"http://localhost:3000/login/invite?token={token}&email={email}&therapistUserId={therapistUserId}";
             return url;
         }
 
-        public string GetResetPasswordUrl(IUrlHelper urlHelper, string token, string email, string scheme)
+        public string GetResetPasswordUrl(string token, string email)
         {
             var url = $"http://localhost:3000/login/resetPassword?token={token}&email={email}";
             return url;

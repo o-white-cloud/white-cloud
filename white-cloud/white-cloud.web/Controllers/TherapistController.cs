@@ -47,7 +47,7 @@ namespace white_cloud.web.Controllers
             }
 
             var token = await _userManager.GenerateUserTokenAsync(user, InviteUserTokenProvider.TokenType, $"invite-user-{user.Id}-{email}");
-            var url = _urlService.GetInviteUserEmailUrl(Url, token, email, user.Id, Request.Scheme);
+            var url = _urlService.GetInviteUserEmailUrl(token, email, user.Id);
             var emailBody = $"{user.FirstName} {user.LastName} va invita in platforma noastra. Click aici pentru a va crea un cont: {url}";
             await _emailService.SendEmail(email, "Invitatie in platforma", emailBody);
             var invite = new ClientInvite()

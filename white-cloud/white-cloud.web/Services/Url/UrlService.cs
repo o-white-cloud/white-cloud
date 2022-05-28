@@ -2,41 +2,17 @@
 
 namespace white_cloud.web.Services
 {
-    public class UrlService : IUrlService
+    public class UrlService : UrlServiceBase, IUrlService
     {
-        public string GetConfirmEmailUrl(IUrlHelper urlHelper, string token, string email, string scheme)
-        {
-            var url = urlHelper.ActionLink("confirmEmail", "api/user", new { token, email }, scheme);
-            if(url == null)
-            {
-                throw new Exception("Generated email confirm url is null");
-            }
-            return url;
-        }
+        public UrlService(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        { }
 
-        public string GetEmailConfirmedUrl()
-        {
-            return "/login/emailConfirmed";
-        }
+        public string GetConfirmEmailUrl(string token, string email) => BuildUrl("api/user/confirmEmail", new {token, email}) ;
 
-        public string GetInviteUserEmailUrl(IUrlHelper urlHelper, string token, string email, string therapistUserId, string scheme)
-        {
-            var url = urlHelper.ActionLink("invite", "login", new { token, email, therapistUserId }, scheme);
-            if (url == null)
-            {
-                throw new Exception("Invite user url is null");
-            }
-            return url;
-        }
+        public string GetEmailConfirmedUrl() => BuildUrl("login/emailConfirmed");
 
-        public string GetResetPasswordUrl(IUrlHelper urlHelper, string token, string email, string scheme)
-        {
-            var url = urlHelper.ActionLink("resetPassword", "login", new { token, email }, scheme);
-            if (url == null)
-            {
-                throw new Exception("Generated password reset url is null");
-            }
-            return url;
-        }
+        public string GetInviteUserEmailUrl(string token, string email, string therapistUserId) => BuildUrl("login/invite", new { token, email, therapistUserId });
+
+        public string GetResetPasswordUrl(string token, string email) => BuildUrl("login/resetPassword", new { token, email });
     }
 }

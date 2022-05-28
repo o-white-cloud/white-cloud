@@ -21,4 +21,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\white-cloud.data\white-cloud.data.csproj" />
+    <ProjectReference Include="..\white-cloud.entities\white-cloud.entities.csproj" />
+    <ProjectReference Include="..\white-cloud.identity\white-cloud.identity.csproj" />
+    <ProjectReference Include="..\white-cloud.interfaces\white-cloud.interfaces.csproj" />
+    <ProjectReference Include="..\white-cloud.web\white-cloud.web.csproj" />
+  </ItemGroup>
+
 </Project>

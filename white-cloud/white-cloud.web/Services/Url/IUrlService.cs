@@ -4,9 +4,9 @@ namespace white_cloud.web.Services
 {
     public interface IUrlService
     {
-        string GetConfirmEmailUrl(IUrlHelper urlHelper, string token, string email, string scheme);
+        string GetConfirmEmailUrl(string token, string email);
         string GetEmailConfirmedUrl();
-        string GetResetPasswordUrl(IUrlHelper urlHelper, string token, string email, string scheme);
-        string GetInviteUserEmailUrl(IUrlHelper urlHelper, string token, string email, string therapistUserId, string scheme);
+        string GetResetPasswordUrl(string token, string email);
+        string GetInviteUserEmailUrl(string token, string email, string therapistUserId);
     }
 }

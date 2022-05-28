@@ -83,7 +83,7 @@ namespace white_cloud.web.Controllers
                 }
 
                 var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationEmailUrl = _urlService.GetConfirmEmailUrl(Url, emailToken, user.Email, Request.Scheme);
+                var confirmationEmailUrl = _urlService.GetConfirmEmailUrl(emailToken, user.Email);
                 try
                 {
                     await _emailService.SendEmail(user.Email, "Confirm email", $"Urmariti acest link pentru confirmarea email-ului: {confirmationEmailUrl}");
@@ -152,9 +152,11 @@ namespace white_cloud.web.Controllers
                 return NotFound();
             }
             var result = await _userManager.ConfirmEmailAsync(user, token);
+
             if (result.Succeeded)
             {
-                return Redirect("/login/emailConfirmed");
+                var redirectUrl = _urlService.GetEmailConfirmedUrl();
+                return Redirect(redirectUrl);
             }
             return StatusCode(StatusCodes.Status409Conflict, result.Errors.Select(e => e.Description));
         }
@@ -170,7 +172,7 @@ namespace white_cloud.web.Controllers
                 return NotFound("User not found");
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var resetUrl = _urlService.GetResetPasswordUrl(Url, token, user.Email, Request.Scheme);
+            var resetUrl = _urlService.GetResetPasswordUrl(token, user.Email);
             await _emailService.SendEmail(model.Email, "White Cloud password reset", $"Use this link to change your password: {resetUrl}");
             return Ok();
         }
