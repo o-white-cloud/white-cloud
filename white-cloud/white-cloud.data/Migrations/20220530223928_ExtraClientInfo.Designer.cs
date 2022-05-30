@@ -13,8 +13,8 @@ using white_cloud.entities.Tests;
 namespace white_cloud.data.Migrations
 {
     [DbContext(typeof(WCDbContext))]
-    [Migration("20220526175126_Initial")]
-    partial class Initial
+    [Migration("20220530223928_ExtraClientInfo")]
+    partial class ExtraClientInfo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -165,8 +165,18 @@ namespace white_cloud.data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Age")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("ClientDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Ocupation")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("TherapistId")
                         .HasColumnType("integer");

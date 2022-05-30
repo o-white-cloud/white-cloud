@@ -19,6 +19,8 @@ builder.Services.AddOidcIdentityProvidersInfo(builder.Configuration);
 builder.Services.AddIdentity(builder.Configuration);
 builder.Services.AddSingleton(builder.Configuration.GetSection("Email").Get<EmailSettings>());
 
+builder.Services.AddMemoryCache();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

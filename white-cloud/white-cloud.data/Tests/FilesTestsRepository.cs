@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using white_cloud.entities.Tests;
@@ -10,14 +11,21 @@ namespace white_cloud.data.Tests
     public class FilesTestsRepository : ITestsRepository
     {
         private readonly ILogger<FilesTestsRepository> _logger;
-
-        public FilesTestsRepository(ILogger<FilesTestsRepository> logger)
+        private readonly IMemoryCache _cache;
+        private readonly string _cacheTestsKey = "tests";
+        public FilesTestsRepository(ILogger<FilesTestsRepository> logger, IMemoryCache cache)
         {
             _logger = logger;
+            _cache = cache;
         }
 
         public async Task<List<TestModel>> GetTests(bool includeResults = false)
         {
+            if (_cache.TryGetValue(_cacheTestsKey, out List<TestModel> cachedTests))
+            {
+                return cachedTests;
+            }
+
             var list = new List<TestModel>();
             foreach (var file in Directory.EnumerateFiles("test_files"))
             {
@@ -44,6 +52,8 @@ namespace white_cloud.data.Tests
                     _logger.LogError(ex, "Could not parse test file {file}", file);
                 }
             }
+            var cacheEntry = _cache.CreateEntry(_cacheTestsKey);
+            cacheEntry.Value = list;
             return list;
         }
 
@@ -51,6 +61,11 @@ namespace white_cloud.data.Tests
         {
             var tests = await GetTests(includeResults);
             return tests.FirstOrDefault(t => t.Id == id);
+        }
+
+        public async Task RefreshTests()
+        {
+            await GetTests();
         }
     }
 

@@ -41,6 +41,9 @@ const InvitePage = () => {
             password: data.password,
             firstName: data.firstName,
             lastName: data.lastName,
+            age: data.age,
+            gender: data.gender,
+            ocupation: data.ocupation
           }),
         }
       );
@@ -52,14 +55,14 @@ const InvitePage = () => {
   );
 
   return (
-    <PageContainer>
+    <PageContainer maxWidth="sm">
       <Card>
         <CardContent>
           <Register
             signInUrl="/login"
             onRegister={onRegister}
             email={email}
-            inviteById={therapistUserId}
+            inviteMode
           />
         </CardContent>
       </Card>

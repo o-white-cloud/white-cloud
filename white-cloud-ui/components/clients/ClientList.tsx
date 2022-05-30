@@ -1,5 +1,6 @@
 import { Client } from 'models';
-import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
@@ -15,12 +16,21 @@ export interface ClientListProps {}
 
 export const ClientList: React.FC<ClientListProps> = (props) => {
   const [clients, setClients] = useState<Client[]>([]);
+  const router = useRouter();
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_HOST}/therapist/clients`)
       .then((r) => r.json())
       .then((data) => setClients(data));
   }, []);
 
+  const onClientClick = useCallback<React.MouseEventHandler<HTMLTableRowElement>>(e => {
+    var id = Number(e.currentTarget.getAttribute('data-id'));
+    if(id === Number.NaN) {
+      return;
+    }
+    router.push(`/client/${id}`);
+  }, [router]);
+  
   return (
     <div>
       <TableContainer component={Paper}>
@@ -37,6 +47,8 @@ export const ClientList: React.FC<ClientListProps> = (props) => {
             {clients.map((row) => (
               <TableRow
                 hover
+                onClick={onClientClick}
+                data-id={row.id}
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >

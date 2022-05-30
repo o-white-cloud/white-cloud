@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using white_cloud.data.EF;
 using white_cloud.entities;
+using white_cloud.entities.Tests;
 using white_cloud.interfaces.Data;
 
 namespace white_cloud.data.Therapists
@@ -55,6 +56,11 @@ namespace white_cloud.data.Therapists
             return await _dbContext.ClientInvites.Where(x => x.TherapistId == therapistId && x.AcceptedDate == null).OrderByDescending(x => x.SentDate).ToListAsync();
         }
 
+        public async Task<ClientInvite?> GetClientInvite(int id)
+        {
+            return await _dbContext.ClientInvites.FindAsync(id);
+        }
+
         public async Task<ClientInvite> InsertClientInvite(ClientInvite userInvite)
         {
             _dbContext.ClientInvites.Add(userInvite);
@@ -69,22 +75,39 @@ namespace white_cloud.data.Therapists
             return clientInvite;
         }
 
-        public async Task<Client> AddClient(int therapistId, string userId)
+        public async Task<Client> AddClient(Client client)
         {
-            var client = new Client()
-            {
-                ClientDate = DateTime.UtcNow,
-                TherapistId = therapistId,
-                UserId = userId
-            };
             _dbContext.Clients.Add(client);
             await _dbContext.SaveChangesAsync();
             return client;
         }
 
-        public async Task<List<Client>> GetClients(int id)
+        public async Task<List<Client>> GetClients(int therapistId)
         {
-            return await _dbContext.Clients.Include(nameof(Client.User)).Where(c => c.TherapistId == id).ToListAsync();
+            return await _dbContext.Clients.Include(nameof(Client.User)).Where(c => c.TherapistId == therapistId).ToListAsync();
+        }
+
+        public async Task<Client?> GetClient(int clientId)
+        {
+            return await _dbContext.Clients.Include(nameof(Client.User)).FirstOrDefaultAsync(c => c.Id == clientId);
+        }
+
+        public async Task<TestRequest> AddTestRequest(TestRequest testRequest)
+        {
+            _dbContext.TestRequests.Add(testRequest);
+            await _dbContext.SaveChangesAsync();
+            return testRequest;
+        }
+
+        public async Task<bool> IsClient(int therapistId, int clientId)
+        {
+            return await _dbContext.Clients.AnyAsync(c => c.Id == clientId && c.TherapistId == therapistId);
+        }
+
+        public async Task<List<TestRequest>> GetTestRequests(int therapistId, int clientId)
+        {
+            var requests = await _dbContext.TestRequests.Where(r => r.TherapistId == therapistId && r.ClientId == clientId).ToListAsync();
+            return requests;
         }
     }
 }

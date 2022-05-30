@@ -12,6 +12,7 @@ const RegisterPage = () => {
   const [registerComplete, setRegisterComplete] = useState(false);
 
   const onRegister = useCallback(async (data: RegisterFormData) => {
+    debugger;
     const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/user/register`, {
       method: 'POST',
       headers: {
@@ -25,7 +26,7 @@ const RegisterPage = () => {
   }, []);
 
   return (
-    <PageContainer>
+    <PageContainer maxWidth="sm">
       <Card>
         <CardContent>
           {!registerComplete && <Register signInUrl="/login" onRegister={onRegister} />}

@@ -6,4 +6,13 @@ export interface Client {
     email: string;
     firstName: string;
     lastName: string;
+    age: number;
+    gender: Gender;
+    ocupation: string;
+}
+
+export enum Gender {
+    Female = 1,
+    Male = 2,
+    Other = 3
 }

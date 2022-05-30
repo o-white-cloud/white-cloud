@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [onLogin, loginError] = useLogin(`${process.env.NEXT_PUBLIC_HOST}/authentication/login`, '/user');
   
   return (
-    <PageContainer>
+    <PageContainer maxWidth="sm">
       <Card>
         <CardContent>
           <Login

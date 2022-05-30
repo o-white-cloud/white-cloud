@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using white_cloud.data.EF;
@@ -12,9 +13,10 @@ using white_cloud.entities.Tests;
 namespace white_cloud.data.Migrations
 {
     [DbContext(typeof(WCDbContext))]
-    partial class WCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220529014609_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,10 +173,6 @@ namespace white_cloud.data.Migrations
 
                     b.Property<int>("Gender")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Ocupation")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<int>("TherapistId")
                         .HasColumnType("integer");

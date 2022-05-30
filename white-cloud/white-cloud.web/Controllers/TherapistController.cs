@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Security.Claims;
 using white_cloud.entities;
+using white_cloud.entities.Tests;
+using white_cloud.entities.Tests.Models;
 using white_cloud.identity.Tokens;
 using white_cloud.interfaces.Data;
 using white_cloud.web.Models.DTOs;
@@ -20,24 +23,32 @@ namespace white_cloud.web.Controllers
         private readonly IEmailService _emailService;
         private readonly IUrlService _urlService;
         private readonly ITherapistsRepository _therapistsRepository;
+        private readonly ITestsRepository _testsRepository;
 
         public TherapistController(
             ILogger<TherapistController> logger,
             UserManager<User> userManager,
             IEmailService emailService,
             IUrlService urlService,
-            ITherapistsRepository therapistsRepository)
+            ITherapistsRepository therapistsRepository,
+            ITestsRepository testsRepository)
         {
             _logger = logger;
             _userManager = userManager;
             _emailService = emailService;
             _urlService = urlService;
             _therapistsRepository = therapistsRepository;
+            _testsRepository = testsRepository;
         }
 
         [HttpPost("invite")]
-        public async Task<IActionResult> InviteClient([FromBody] string email)
+        public async Task<IActionResult> InviteClient([FromBody(EmptyBodyBehavior = Microsoft.AspNetCore.Mvc.ModelBinding.EmptyBodyBehavior.Allow)] string? email, [FromQuery] int? id)
         {
+            if(!id.HasValue && string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email or existing invite id must be present in the request");
+            }
+
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var therapist = await _therapistsRepository.Get(user.Id);
             if (therapist == null)
@@ -46,17 +57,32 @@ namespace white_cloud.web.Controllers
                 return NotFound("Could not find therapist for the user");
             }
 
-            var token = await _userManager.GenerateUserTokenAsync(user, InviteUserTokenProvider.TokenType, $"invite-user-{user.Id}-{email}");
-            var url = _urlService.GetInviteUserEmailUrl(token, email, user.Id);
-            var emailBody = $"{user.FirstName} {user.LastName} va invita in platforma noastra. Click aici pentru a va crea un cont: {url}";
-            await _emailService.SendEmail(email, "Invitatie in platforma", emailBody);
-            var invite = new ClientInvite()
+            var invite = id.HasValue ? await _therapistsRepository.GetClientInvite(id.Value) : new ClientInvite()
             {
                 TherapistId = therapist.Id,
                 Email = email,
                 SentDate = DateTime.UtcNow,
             };
-            invite = await _therapistsRepository.InsertClientInvite(invite);
+            
+            if(invite == null)
+            {
+                return NotFound("Could not find invite");
+            }
+
+            var token = await _userManager.GenerateUserTokenAsync(user, InviteUserTokenProvider.TokenType, $"invite-user-{user.Id}-{invite.Email}");
+            var url = _urlService.GetInviteUserEmailUrl(token, invite.Email, user.Id);
+            var emailBody = $"{user.FirstName} {user.LastName} va invita in platforma noastra. Click aici pentru a va crea un cont: {url}";
+            await _emailService.SendEmail(invite.Email, "Invitatie in platforma", emailBody);
+
+            if (invite.Id != default)
+            {
+                invite.SentDate = DateTime.UtcNow;
+                await _therapistsRepository.UpdateClientInvite(invite);
+            }
+            else
+            {
+                invite = await _therapistsRepository.InsertClientInvite(invite);
+            }
             return Ok(invite);
         }
 
@@ -88,9 +114,96 @@ namespace white_cloud.web.Controllers
                 UserId = x.UserId,
                 Email = x.User.Email,
                 FirstName = x.User.FirstName,
-                LastName = x.User.LastName
+                LastName = x.User.LastName,
+                Age = x.Age,
+                Gender = x.Gender
             });
             return Ok(clients);
+        }
+
+        [HttpGet("client/{clientId}")]
+        public async Task<IActionResult> GetClient(int clientId)
+        {
+            var therapist = await GetTherapistFromContext();
+            if (therapist == null)
+            {
+                return NotFound("Therapist not found");
+            }
+            if (!await _therapistsRepository.IsClient(therapist.Id, clientId)) ;
+            var clientEntity = await _therapistsRepository.GetClient(clientId);
+            if(clientEntity == null)
+            {
+                return NotFound("Client not found");
+            }
+
+            var client = new ClientDto
+            {
+                ClientDate = clientEntity.ClientDate,
+                Id = clientEntity.Id,
+                UserId = clientEntity.UserId,
+                Email = clientEntity.User.Email,
+                FirstName = clientEntity.User.FirstName,
+                LastName = clientEntity.User.LastName,
+                Age = clientEntity.Age,
+                Gender = clientEntity.Gender,
+                Ocupation = clientEntity.Ocupation
+            };
+            return Ok(client);
+        }
+
+
+        [HttpPost("testRequest")]
+        public async Task<IActionResult> RequestTest(RequestATestDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var therapist = await GetTherapistFromContext();
+            if (therapist == null)
+            {
+                return NotFound("Could not find therapist");
+            }
+
+            if (!await _therapistsRepository.IsClient(therapist.Id, model.ClientId))
+            {
+                return NotFound("Client does not belong to therapist");
+            }
+
+            var testRequest = new TestRequest()
+            {
+                ClientId = model.ClientId,
+                TherapistId = therapist.Id,
+                TestId = model.TestId,
+                SendEmailOnSubmission = model.SendEmail ?? false,
+                SentDate = DateTime.UtcNow
+            };
+            await _therapistsRepository.AddTestRequest(testRequest);
+            return Ok(testRequest);
+        }
+
+        [HttpGet("testRequests")]
+        public async Task<IActionResult> GetTestRequests(int clientId)
+        {
+            var therapist = await GetTherapistFromContext();
+            if (therapist == null)
+                return NotFound("Could not find therapist");
+            if (!await _therapistsRepository.IsClient(therapist.Id, clientId))
+            {
+                return NotFound("Client does not belong to therapist");
+            }
+
+            var requestEntities = await _therapistsRepository.GetTestRequests(therapist.Id, clientId);
+            var tests = await _testsRepository.GetTests();
+            var testsDict = tests.ToDictionary(t => t.Id, t => t);
+            var requestDtos = requestEntities.Where(r => testsDict.ContainsKey(r.TestId)).Select(x => new ClientTestRequestDto()
+            {
+                Id = x.Id,
+                RequestDate = x.SentDate,
+                TestId = x.TestId,
+                TestName = testsDict[x.TestId].Name
+            });
+            return Ok(requestDtos);
         }
 
         private async Task<Therapist?> GetTherapistFromContext()

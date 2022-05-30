@@ -136,7 +136,16 @@ namespace white_cloud.web.Controllers
                 _logger.LogInformation("Created user {email}", registerUserModel.Email);
             }
 
-            await _therapistsRepository.AddClient(therapist.Id, user.Id);
+            var client = new Client()
+            {
+                ClientDate = DateTime.UtcNow,
+                TherapistId = therapist.Id,
+                UserId = user.Id,
+                Age = registerUserModel.Age,
+                Gender = registerUserModel.Gender,
+                Ocupation = registerUserModel.Ocupation,
+            };
+            await _therapistsRepository.AddClient(client);
             await _therapistsRepository.CompleteClientInvite(therapist.Id, user.Email);
 
             return Ok();

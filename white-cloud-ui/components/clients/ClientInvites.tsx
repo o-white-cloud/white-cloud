@@ -1,5 +1,5 @@
 import { ClientInvite } from 'models';
-import { useCallback, useEffect, useState } from 'react';
+import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import Badge from '@mui/material/Badge';
@@ -35,10 +35,34 @@ export const ClientInvites: React.FC<ClientInvitesProps> = (props) => {
     [invites]
   );
 
+  const onResendInvite = useCallback<MouseEventHandler<HTMLButtonElement>>(
+    (e) => {
+      debugger;
+      const id = Number(e.currentTarget.getAttribute('data-id'));
+      if(id === Number.NaN) {
+        return;
+      }
+      const idIndex = invites.findIndex(invite => invite.id === id);
+      fetch(`${process.env.NEXT_PUBLIC_HOST}/therapist/invite?id=${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          setInvites([...invites].splice(idIndex, 1, data));
+        });
+    },
+    [invites, setInvites]
+  );
+
   return (
     <div>
       <TableContainer component={Paper}>
-        <Typography sx={{marginTop:2, marginLeft: 2}} variant='h5'>Invitatii active</Typography>
+        <Typography sx={{ marginTop: 2, marginLeft: 2 }} variant="h5">
+          Invitatii active
+        </Typography>
         <Table>
           <TableHead>
             <TableRow>
@@ -58,7 +82,9 @@ export const ClientInvites: React.FC<ClientInvitesProps> = (props) => {
                 </TableCell>
                 <TableCell>{new Date(row.sentDate).toLocaleString()}</TableCell>
                 <TableCell>
-                  <Button>Trimite din nou</Button>
+                  <Button data-id={row.id} onClick={onResendInvite}>
+                    Trimite din nou
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

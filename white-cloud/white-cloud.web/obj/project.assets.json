@@ -6215,6 +6215,7 @@
     "net6.0": [
       "Google.Apis.Gmail.v1 >= 1.55.0.2510",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.5",
+      "Microsoft.Extensions.Caching.Memory >= 6.0.1",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.14.0",
       "NETCore.MailKit >= 2.0.3",
       "Swashbuckle.AspNetCore >= 6.2.3",
@@ -6285,6 +6286,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[6.0.5, )"
+          },
+          "Microsoft.Extensions.Caching.Memory": {
+            "target": "Package",
+            "version": "[6.0.1, )"
           },
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
             "target": "Package",

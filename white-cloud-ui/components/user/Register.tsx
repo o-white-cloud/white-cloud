@@ -1,3 +1,5 @@
+import { FormRadioGroup, FormTextField } from 'components/forms';
+import { Gender } from 'models';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
@@ -6,7 +8,9 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Radio from '@mui/material/Radio';
@@ -21,6 +25,9 @@ export interface RegisterFormData {
   password: string;
   copsiNumber?: string;
   accountType: AccountType;
+  age?: number;
+  gender?: number;
+  ocupation?: string;
 }
 
 export enum AccountType {
@@ -31,43 +38,52 @@ export enum AccountType {
 export interface RegisterProps {
   onRegister: (data: RegisterFormData) => {};
   email?: string;
-  inviteById?: string;
+  inviteMode?: boolean;
   signInUrl: string;
 }
 export const Register: React.FC<RegisterProps> = (props) => {
-  const { onRegister, signInUrl, email, inviteById } = props;
+  const { onRegister, signInUrl, email, inviteMode } = props;
   const [accountType, setAccountType] = useState<AccountType>(
     AccountType.Personal
   );
-  const {
-    control,
-    reset,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<RegisterFormData>({
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: email ? email : '',
-      password: '',
-      accountType: AccountType.Personal,
-    },
-  });
+  const { control, reset, getValues, handleSubmit } = useForm<RegisterFormData>(
+    {
+      defaultValues: {
+        firstName: '',
+        lastName: '',
+        email: email ? email : '',
+        password: '',
+        accountType: AccountType.Personal,
+        age: undefined,
+        gender: undefined,
+        ocupation: undefined,
+      },
+    }
+  );
+
+  const formValues = getValues();
+  useEffect(() => {
+    console.log(JSON.stringify(formValues));
+  }, [formValues]);
 
   useEffect(() => {
-    if(email) {
+    if (email) {
       reset({
         firstName: '',
         lastName: '',
         email: email,
         password: '',
         accountType: AccountType.Personal,
-      })
+        age: undefined,
+        gender: undefined,
+        ocupation: undefined
+      });
     }
   }, [email, reset]);
 
   const onFormSubmit = useCallback<SubmitHandler<RegisterFormData>>(
     (data) => {
+      debugger;
       onRegister({ ...data, accountType: accountType });
     },
     [onRegister, accountType]
@@ -97,7 +113,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
       <form onSubmit={handleSubmit(onFormSubmit)}>
         <Box sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            {!email && (
+            {!inviteMode && (
               <Grid item xs={12} direction="row">
                 <RadioGroup
                   aria-labelledby="account-type"
@@ -124,106 +140,110 @@ export const Register: React.FC<RegisterProps> = (props) => {
               </Grid>
             )}
             <Grid item xs={12} sm={6}>
-              <Controller
+              <FormTextField
                 name="firstName"
                 control={control}
-                render={({ field }) => (
-                  <TextField
-                    autoComplete="given-name"
-                    {...field}
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                  />
-                )}
+                label="Prenume"
+                required
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Controller
+              <FormTextField
                 name="lastName"
                 control={control}
-                render={({ field }) => (
-                  <TextField
-                    required
-                    {...field}
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    autoComplete="family-name"
-                  />
-                )}
+                label="Nume"
+                required
+                fullWidth
               />
             </Grid>
             <Grid item xs={12}>
-              <Controller
+              <FormTextField
                 name="email"
                 control={control}
+                label="Email"
+                required
+                fullWidth
                 rules={{
                   required: {
                     value: true,
                     message: 'Email cannot be empty',
                   },
                 }}
-                render={({ field }) => (
-                  <TextField
-                    required
-                    {...field}
-                    fullWidth
-                    disabled={email !== undefined}
-                    InputProps={{ readOnly: email !== undefined }}
-                    id="email"
-                    label="Email"
-                    autoComplete="email"
-                  />
-                )}
               />
             </Grid>
             <Grid item xs={12}>
-              <Controller
+              <FormTextField
                 name="password"
                 control={control}
+                label="Parola"
+                required
+                type="password"
+                fullWidth
                 rules={{
                   required: {
                     value: true,
-                    message: 'Password cannot be empty',
+                    message: 'Parola este obligatorie',
                   },
                 }}
-                render={({ field }) => (
-                  <TextField
-                    required
-                    {...field}
-                    fullWidth
-                    label="Parola"
-                    type="password"
-                    id="password"
-                    autoComplete="new-password"
-                  />
-                )}
               />
             </Grid>
+            {inviteMode && (
+              <>
+                <Grid item xs={12}>
+                  <FormTextField
+                    name="age"
+                    control={control}
+                    label="Varsta"
+                    required
+                    type="number"
+                    rules={{
+                      required: {
+                        value: true,
+                        message: 'Varsta trebuie sa fie intre 14 si 100 ani',
+                      },
+                      min: 14,
+                      max: 110,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormRadioGroup
+                    radios={[
+                      { label: 'Feminin', value: Gender.Female },
+                      { label: 'Masculin', value: Gender.Male },
+                      { label: 'Altceva', value: Gender.Other },
+                    ]}
+                    name="gender"
+                    label="Sex"
+                    defaultValue={Gender.Other}
+                    control={control}
+                  />
+                </Grid>{' '}
+                <Grid item xs={12}>
+                  <FormTextField
+                    name="ocupation"
+                    control={control}
+                    label="Ocupatia"
+                    required
+                    fullWidth
+                    rules={{
+                      required: {
+                        value: true,
+                        message: 'Campul este obligatoriu',
+                      },
+                    }}
+                  />
+                </Grid>
+              </>
+            )}
             {accountType === AccountType.Therapist && (
               <Grid item xs={12}>
-                <Controller
+                <FormTextField
                   name="copsiNumber"
                   control={control}
-                  rules={{
-                    required: {
-                      value: true,
-                      message: 'Numarul COPSI este obligatoriu',
-                    },
-                  }}
-                  render={({ field }) => (
-                    <TextField
-                      required
-                      {...field}
-                      fullWidth
-                      label="Numar COPSI"
-                      id="copsiNumber"
-                      autoComplete="new-copsi-number"
-                    />
-                  )}
+                  label="Cod parafa Colegiul Psihologilor"
+                  required
                 />
               </Grid>
             )}

@@ -15,14 +15,13 @@ const Test: React.FC<TestProps> = (props) => {
   console.log(process.env.NEXT_PUBLIC_HOST);
   const { testItem } = props;
   const onTestSubmit = useCallback(
-    (email: string, answers: { [qId: number]: string }) => {
+    (answers: { [qId: number]: string }) => {
       fetch(`${process.env.NEXT_PUBLIC_HOST}/tests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email,
           testId: testItem.id,
           answers,
         }),
