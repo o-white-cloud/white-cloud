@@ -9,15 +9,14 @@ export interface ClientInfoProps {
   clientId: number;
 }
 
-const ClientField: React.FC<{ label: string; value: string }> = React.memo(
-  (props) => (
-    <TextField
-      sx={{marginTop: 2}}
-      label={props.label}
-      value={props.value}
-      InputProps={{ readOnly: true, disableUnderline: true }}
-    />
-  )
+const ClientField: React.FC<{ label: string; value: string }> = (props) => (
+  <TextField
+    sx={{ marginTop: 2 }}
+    label={props.label}
+    value={props.value}
+    variant="standard"
+    InputProps={{ readOnly: true, disableUnderline: true }}
+  />
 );
 
 export const ClientInfo: React.FC<ClientInfoProps> = (props) => {
@@ -35,7 +34,7 @@ export const ClientInfo: React.FC<ClientInfoProps> = (props) => {
 
   return (
     <Stack>
-      <Typography variant='h4'>{`${client.firstName} ${client.lastName}`}</Typography>
+      <Typography variant="h4">{`${client.firstName} ${client.lastName}`}</Typography>
       <ClientField label="Varsta" value={client.age.toString()} />
       <ClientField
         label="Sex"
