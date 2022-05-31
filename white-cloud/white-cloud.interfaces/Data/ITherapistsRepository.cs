@@ -21,6 +21,8 @@ namespace white_cloud.interfaces.Data
         Task<Client> AddClient(Client client);
         Task<List<Client>> GetClients(int id);
         Task<Client?> GetClient(int clientId);
+        Task<Client?> GetClient(string userId);
+        Task RemoveClient(Client client);
         Task<bool> IsClient(int therapistId, int clientId);
         Task<TestRequest> AddTestRequest(TestRequest testRequest);
         Task<List<TestRequest>> GetTestRequests(int therapistId, int clientId);

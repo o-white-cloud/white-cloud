@@ -92,6 +92,19 @@ namespace white_cloud.data.Therapists
             return await _dbContext.Clients.Include(nameof(Client.User)).FirstOrDefaultAsync(c => c.Id == clientId);
         }
 
+        public async Task<Client?> GetClient(string userId)
+        {
+            return await _dbContext.Clients.Include(nameof(Client.User)).FirstOrDefaultAsync(c => c.UserId == userId);
+        }
+
+        public async Task RemoveClient(Client client)
+        {
+            var invites = await _dbContext.ClientInvites.Where(c => c.Email == client.User.Email).ToListAsync();
+            foreach (var invite in invites) _dbContext.ClientInvites.Remove(invite);
+            _dbContext.Clients.Remove(client);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<TestRequest> AddTestRequest(TestRequest testRequest)
         {
             _dbContext.TestRequests.Add(testRequest);
