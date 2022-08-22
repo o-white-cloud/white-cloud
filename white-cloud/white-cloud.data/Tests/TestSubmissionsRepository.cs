@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using white_cloud.data.EF;
 using white_cloud.entities.Tests;
 using white_cloud.interfaces.Data;
 
@@ -7,38 +8,30 @@ namespace white_cloud.data.Tests
     public class TestSubmissionsRepository : ITestSubmissionsRepository
     {
         private readonly ILogger<TestSubmissionsRepository> _logger;
+        private readonly WCDbContext _dbContext;
 
-        public TestSubmissionsRepository(ILogger<TestSubmissionsRepository> logger)
+        public TestSubmissionsRepository(ILogger<TestSubmissionsRepository> logger, WCDbContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
-        public async Task InsertTestSubmission(TestSubmission testSubmission)
+        public async Task InsertTestSubmission(TestSubmission testSubmission, TestSubmissionShare? submissionShare = null, int? testRequestId = null)
         {
-            //using (var con = _connectionFactory.GetDbConnection() as Npgsql.NpgsqlConnection)
-            //{
-            //    if(con == null)
-            //    {
-            //        throw new Exception("Could not get connection to the database");
-            //    }
-                
-            //    await con.OpenAsync();
-
-            //    var query = @"INSERT INTO test_results (user_email, answers, test_id, result, test_timestamp) VALUES(@email, @answers, @testId, @results, @timestamp)";
-
-            //    using var cmd = new NpgsqlCommand(query, con)
-            //    {
-            //        Parameters =
-            //        {
-            //            new NpgsqlParameter("email", NpgsqlTypes.NpgsqlDbType.Text) { Value = testSubmission.Email },
-            //            new NpgsqlParameter("answers", NpgsqlTypes.NpgsqlDbType.Jsonb) { Value = testSubmission.Answers.Select(a => new { qId = a.Key, value = a.Value}).ToArray()},
-            //            new NpgsqlParameter("testId", NpgsqlTypes.NpgsqlDbType.Smallint) { Value = testSubmission.TestId },
-            //            new NpgsqlParameter("results", NpgsqlTypes.NpgsqlDbType.Jsonb) { Value = testSubmission.Result},
-            //            new NpgsqlParameter("timestamp", NpgsqlTypes.NpgsqlDbType.Timestamp) { Value = testSubmission.Timestamp}
-            //        }
-            //    };
-            //    await cmd.ExecuteNonQueryAsync();
-            //}
+            _dbContext.TestSubmissions.Add(testSubmission);
+            if (submissionShare is not null)
+            {
+                _dbContext.TestSubmissionShares.Add(submissionShare);
+            }
+            if (testRequestId is not null)
+            {
+                var request = await _dbContext.TestRequests.FindAsync(testRequestId);
+                if (request is not null)
+                { 
+                    request.TestSubmissionShare = submissionShare; 
+                }
+            }
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

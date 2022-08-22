@@ -29,6 +29,6 @@ public class SumIntervalsTestComputer : ITestResultComputer
         {
             return Task.FromResult(new TestSubmissionResultModel {  ResultId = 0 });
         }
-        return Task.FromResult(new TestSubmissionResultModel { ResultId = interval.Id });
+        return Task.FromResult(new TestSubmissionResultModel { ResultId = interval.Id, ResultData = interval });
     }
 }

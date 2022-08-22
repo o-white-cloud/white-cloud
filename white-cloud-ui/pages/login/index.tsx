@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 
 const LoginPage = () => {
-  const [onLogin, loginError] = useLogin(`${process.env.NEXT_PUBLIC_HOST}/authentication/login`, '/user');
+  const [onLogin, loginError, loading] = useLogin(`${process.env.NEXT_PUBLIC_HOST}/authentication/login`, '/user');
   
   return (
     <PageContainer maxWidth="sm">
@@ -15,6 +15,7 @@ const LoginPage = () => {
           <Login
             onLogin={onLogin}
             error={loginError}
+            loading={loading}
             forgotPasswordUrl="/login/forgotPassword"
             registerUrl="/login/register"
           />

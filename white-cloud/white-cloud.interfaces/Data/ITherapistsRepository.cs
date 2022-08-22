@@ -24,7 +24,9 @@ namespace white_cloud.interfaces.Data
         Task<Client?> GetClient(string userId);
         Task RemoveClient(Client client);
         Task<bool> IsClient(int therapistId, int clientId);
-        Task<TestRequest> AddTestRequest(TestRequest testRequest);
+        Task<IEnumerable<TestRequest>> AddTestRequests(IEnumerable<TestRequest> testRequest);
         Task<List<TestRequest>> GetTestRequests(int therapistId, int clientId);
+        Task<bool?> DeleteTestRequest(int id);
+        Task<List<TestSubmissionShare>> GetTestSubmissionShares(int therapistId, string userId);
     }
 }

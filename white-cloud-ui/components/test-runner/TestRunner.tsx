@@ -1,8 +1,9 @@
+import { ClientTestRequest } from 'models';
 import { TestModel } from 'models/TestModel';
 import React, { useCallback, useEffect } from 'react';
 import { Controller, Ref, SubmitHandler, useForm } from 'react-hook-form';
 
-import { Stack, TextField } from '@mui/material';
+import { Alert, Stack, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
 import { unstable_useForkRef } from '@mui/utils';
@@ -13,6 +14,7 @@ import { QuestionsData, TestFormData } from './types';
 interface TestRunnerProps {
   testItem: TestModel;
   onSubmit: (answers: { [qId: number]: string }) => void;
+  testRequest: ClientTestRequest | null;
 }
 
 const RootDiv = styled('div')(({ theme }) => ({
@@ -20,7 +22,7 @@ const RootDiv = styled('div')(({ theme }) => ({
 }));
 
 const TestRunner: React.FC<TestRunnerProps> = (props) => {
-  const { testItem, onSubmit } = props;
+  const { testItem, onSubmit, testRequest } = props;
 
   const onSubmitInternal = useCallback<SubmitHandler<TestFormData>>(
     (data) => {
@@ -50,7 +52,7 @@ const TestRunner: React.FC<TestRunnerProps> = (props) => {
       if (errors.questions && Object.values(errors.questions).length > 0) {
         const questionId = Object.keys(errors.questions)[0];
         elementName = `questions.${questionId}`;
-      } 
+      }
 
       if (elementName) {
         let firstErrorElement = document.getElementsByName(elementName)[0];
@@ -76,9 +78,18 @@ const TestRunner: React.FC<TestRunnerProps> = (props) => {
           />
         ))}
 
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
+        <Stack direction='row'>
+          <Button variant="contained" type="submit">
+            Submit
+          </Button>
+          {testRequest && (
+            <Alert severity="info" sx={{marginLeft: 2}}>
+              Rezultatele vor fi automat trimise catre{' '}
+              {testRequest.therapistUserFirstName}{' '}
+              {testRequest.therapistUserLastName}.
+            </Alert>
+          )}
+        </Stack>
       </form>
     </RootDiv>
   );

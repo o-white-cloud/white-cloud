@@ -1,6 +1,6 @@
-import { ClientInfo, ClientTestRequests } from 'components/clients';
 import { useUser } from 'components/hooks';
 import { PageContainer } from 'components/PageContainer';
+import { ClientInfo, ClientTestRequests, ClientTestShares } from 'components/therapist';
 import { Roles } from 'models/User';
 import { useRouter } from 'next/router';
 
@@ -26,6 +26,8 @@ const ClientPage = () => {
           </Grid>
           <Grid item xs={8}>
             <ClientTestRequests clientId={id} />
+            <br/>
+            <ClientTestShares clientId={id}/>
           </Grid>
         </Grid>
       )}

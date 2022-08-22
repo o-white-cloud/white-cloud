@@ -1,6 +1,9 @@
+import { Roles } from 'models/User';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
@@ -28,7 +31,7 @@ const Navbar = (props: NavbarProps) => {
         display: { xs: `none`, md: `flex` },
       }}
     >
-      <Stack direction="row" spacing={4}>
+      <Stack direction="row" spacing={4} sx={{ alignItems: 'center' }}>
         {props.navLinks.map((l, i) => (
           <Link
             key={`${l.title}${i}`}
@@ -42,13 +45,17 @@ const Navbar = (props: NavbarProps) => {
         {user.authenticated ? (
           <>
             <Link
-              href="/user"
+              href={
+                user.roles.includes(Roles.Therapist) ? '/therapist' : '/user'
+              }
               variant="button"
               sx={{ color: `white`, opacity: 0.7 }}
             >
               {`${user.firstName} ${user.lastName}`}
             </Link>
-            <Button onClick={onLogout}>Logout</Button>
+            <Button color="inherit" onClick={onLogout} startIcon={<LogoutIcon/>}>
+              Logout
+            </Button>
           </>
         ) : (
           <Button variant="text" color="inherit" href="/login">

@@ -1,21 +1,19 @@
 import { PageContainer } from 'components/PageContainer';
-import { Login } from 'components/user/Login';
-import { OpenIdLogin } from 'components/user/OpenIdLogin';
 import { Register, RegisterFormData } from 'components/user/Register';
 import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
 
-import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 
 const InvitePage = () => {
   const [email, setEmail] = useState('');
   const [token, setToken] = useState('');
+  const [loading, setLoading] = useState(false);
   const [therapistUserId, setTherapistUserId] = useState('');
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   
   useEffect(() => {
     setToken((location.search.match(/token=([^&]+)/) || [])[1]);
@@ -27,28 +25,34 @@ const InvitePage = () => {
 
   const onRegister = useCallback(
     async (data: RegisterFormData) => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/user/registerInvite`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            inviteToken: token,
-            therapistUserId,
-            email,
-            password: data.password,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            age: data.age,
-            gender: data.gender,
-            ocupation: data.ocupation
-          }),
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/user/registerInvite`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              inviteToken: token,
+              therapistUserId,
+              email,
+              password: data.password,
+              firstName: data.firstName,
+              lastName: data.lastName,
+              age: data.age,
+              gender: data.gender,
+              ocupation: data.ocupation,
+            }),
+          }
+        );
+        if (response.ok) {
+          router.push('/login');
         }
-      );
-      if (response.ok) {
-        router.push('/login');
+      } catch (e) {
+      } finally {
+        setLoading(false);
       }
     },
     [email, token, therapistUserId, router]
@@ -60,6 +64,7 @@ const InvitePage = () => {
         <CardContent>
           <Register
             signInUrl="/login"
+            loading={loading}
             onRegister={onRegister}
             email={email}
             inviteMode

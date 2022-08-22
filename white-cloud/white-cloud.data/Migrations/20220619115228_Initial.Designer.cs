@@ -13,8 +13,8 @@ using white_cloud.entities.Tests;
 namespace white_cloud.data.Migrations
 {
     [DbContext(typeof(WCDbContext))]
-    [Migration("20220530223928_ExtraClientInfo")]
-    partial class ExtraClientInfo
+    [Migration("20220619115228_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -233,16 +233,13 @@ namespace white_cloud.data.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("SendEmailOnSubmission")
-                        .HasColumnType("boolean");
-
                     b.Property<DateTime>("SentDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("SubmissionDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<int>("TestId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("TestSubmissionShareId")
                         .HasColumnType("integer");
 
                     b.Property<int>("TherapistId")
@@ -251,6 +248,8 @@ namespace white_cloud.data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("TestSubmissionShareId");
 
                     b.HasIndex("TherapistId");
 
@@ -278,18 +277,48 @@ namespace white_cloud.data.Migrations
                     b.Property<int>("TestId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TestRequestId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("TestRequestId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("TestSubmissions");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Tests.TestSubmissionShare", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ShareDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TestSubmissionId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TherapistId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestSubmissionId");
+
+                    b.HasIndex("TherapistId");
+
+                    b.ToTable("TestSubmissionShares");
                 });
 
             modelBuilder.Entity("white_cloud.entities.Therapist", b =>
@@ -476,6 +505,10 @@ namespace white_cloud.data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("white_cloud.entities.Tests.TestSubmissionShare", "TestSubmissionShare")
+                        .WithMany()
+                        .HasForeignKey("TestSubmissionShareId");
+
                     b.HasOne("white_cloud.entities.Therapist", "Therapist")
                         .WithMany()
                         .HasForeignKey("TherapistId")
@@ -484,16 +517,39 @@ namespace white_cloud.data.Migrations
 
                     b.Navigation("Client");
 
+                    b.Navigation("TestSubmissionShare");
+
                     b.Navigation("Therapist");
                 });
 
             modelBuilder.Entity("white_cloud.entities.Tests.TestSubmission", b =>
                 {
-                    b.HasOne("white_cloud.entities.Tests.TestRequest", "TestRequest")
-                        .WithOne("TestSubmission")
-                        .HasForeignKey("white_cloud.entities.Tests.TestSubmission", "TestRequestId");
+                    b.HasOne("white_cloud.entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("TestRequest");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("white_cloud.entities.Tests.TestSubmissionShare", b =>
+                {
+                    b.HasOne("white_cloud.entities.Tests.TestSubmission", "TestSubmission")
+                        .WithMany("TestSubmissionShares")
+                        .HasForeignKey("TestSubmissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("white_cloud.entities.Therapist", "Therapist")
+                        .WithMany()
+                        .HasForeignKey("TherapistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TestSubmission");
+
+                    b.Navigation("Therapist");
                 });
 
             modelBuilder.Entity("white_cloud.entities.Therapist", b =>
@@ -507,9 +563,9 @@ namespace white_cloud.data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("white_cloud.entities.Tests.TestRequest", b =>
+            modelBuilder.Entity("white_cloud.entities.Tests.TestSubmission", b =>
                 {
-                    b.Navigation("TestSubmission");
+                    b.Navigation("TestSubmissionShares");
                 });
 
             modelBuilder.Entity("white_cloud.entities.Therapist", b =>

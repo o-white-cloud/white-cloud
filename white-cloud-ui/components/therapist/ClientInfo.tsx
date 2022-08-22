@@ -34,14 +34,14 @@ export const ClientInfo: React.FC<ClientInfoProps> = (props) => {
 
   return (
     <Stack>
-      <Typography variant="h4">{`${client.firstName} ${client.lastName}`}</Typography>
+      <Typography variant="h4">{`${client.userFirstName} ${client.userLastName}`}</Typography>
       <ClientField label="Varsta" value={client.age.toString()} />
       <ClientField
         label="Sex"
         value={client.gender === Gender.Male ? 'Masculin' : 'Feminin'}
       />
       <ClientField label="Ocupatia" value={client.ocupation} />
-      <ClientField label="Email" value={client.email} />
+      <ClientField label="Email" value={client.userEmail} />
       <ClientField
         label="Data"
         value={new Date(client.clientDate).toLocaleDateString()}

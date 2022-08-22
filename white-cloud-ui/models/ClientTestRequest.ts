@@ -1,7 +1,8 @@
 export interface ClientTestRequest {
     id: number;
-    requestDate : string;
-    sentDate: string;
+    sentDate : string;
     testId: number;
     testName: string;
+    therapistUserFirstName: string;
+    therapistUserLastName: string;
 }

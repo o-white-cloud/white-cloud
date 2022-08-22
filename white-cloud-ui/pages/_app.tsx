@@ -2,6 +2,7 @@ import '../styles/globals.css';
 
 import Header from 'components/Header';
 import Head from 'next/head';
+import { SnackbarProvider } from 'notistack';
 
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { GlobalStyles } from '@mui/material';
@@ -11,11 +12,11 @@ import { ThemeProvider } from '@mui/material/styles';
 import createEmotionCache from '../styles/createEmotionCache';
 import theme from '../styles/theme';
 
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
 const clientSideEmotionCache = createEmotionCache();
 
-interface MyAppProps extends AppProps{
-  emotionCache: EmotionCache
+interface MyAppProps extends AppProps {
+  emotionCache: EmotionCache;
 }
 
 function MyApp(props: MyAppProps) {
@@ -35,11 +36,13 @@ function MyApp(props: MyAppProps) {
             body: { backgroundColor: '#e7ebf0' },
           }}
         />
-        <Header/>
-        <Component {...pageProps} />
+        <Header />
+        <SnackbarProvider maxSnack={3}>
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </ThemeProvider>
     </CacheProvider>
   );
 }
 
-export default MyApp
+export default MyApp;

@@ -1,9 +1,9 @@
 import { PageContainer } from 'components/PageContainer';
 import TestRunner from 'components/test-runner/TestRunner';
 import parse from 'html-react-parser';
-import { TestModel } from 'models';
+import { ClientTestRequest, TestModel } from 'models';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Box, Container, TextField, Typography } from '@mui/material';
 
@@ -12,18 +12,30 @@ interface TestProps {
 }
 
 const Test: React.FC<TestProps> = (props) => {
-  console.log(process.env.NEXT_PUBLIC_HOST);
   const { testItem } = props;
+  const [clientTestRequest, setClientTestRequest] =
+    useState<ClientTestRequest | null>(null);
+
+  useEffect(() => {
+    const requestId = (location.search.match(/request=([^&]+)/) || [])[1];
+    if (requestId) {
+      fetch(`${process.env.NEXT_PUBLIC_HOST}/client/testRequest/${requestId}`)
+        .then((r) => r.json())
+        .then((data) => setClientTestRequest(data));
+    }
+  }, [setClientTestRequest]);
+
   const onTestSubmit = useCallback(
     (answers: { [qId: number]: string }) => {
-      fetch(`${process.env.NEXT_PUBLIC_HOST}/tests`, {
+      fetch(`${process.env.NEXT_PUBLIC_HOST}/tests/request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           testId: testItem.id,
-          answers,
+          answers: Object.keys(answers).map(k => ({questionId: k, answerValue: answers[k as any]})),
+          requestId: clientTestRequest ? clientTestRequest.id : null,
         }),
       })
         .then((r) => r.json())
@@ -32,10 +44,15 @@ const Test: React.FC<TestProps> = (props) => {
     [testItem]
   );
   return (
-    <PageContainer sx={{overflow: 'auto'}}>
+    <PageContainer sx={{ overflow: 'auto' }}>
+      {/* {clientTestRequest && (
+        <Typography variant="h6">
+          Request: {JSON.stringify(clientTestRequest)}
+        </Typography>
+      )} */}
       <Typography variant="h2">{testItem.name}</Typography>
       <Box sx={{ typography: 'body1' }}>{parse(testItem.description)}</Box>
-      <TestRunner testItem={testItem} onSubmit={onTestSubmit} />
+      <TestRunner testItem={testItem} onSubmit={onTestSubmit} testRequest={clientTestRequest}/>
     </PageContainer>
   );
 };
@@ -59,7 +76,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!context.params) {
     return { props: {} };
   }
-
   const id = Number(context.params['id']);
   const res = await fetch(`${process.env.BUILD_HOST}/tests`);
   const tests: TestModel[] = await res.json();

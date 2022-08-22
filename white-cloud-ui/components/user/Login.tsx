@@ -4,10 +4,10 @@ import { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
@@ -19,6 +19,7 @@ export interface LoginProps {
   forgotPasswordUrl: string;
   registerUrl: string;
   error: string | undefined;
+  loading: boolean;
 }
 
 interface LoginFormData {
@@ -32,41 +33,55 @@ export const useLogin = (
   redirectUrl: string
 ): [
   (email: string, password: string, rememberMe: boolean) => void,
-  string | undefined
+  string | undefined,
+  boolean
 ] => {
   const [loginError, setLoginError] = useState<string>();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const onLogin = useCallback(
     async (email: string, password: string, rememberMe: boolean) => {
-      const response = await fetch(loginUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          rememberMe,
-        }),
-      });
-      if (response.ok) {
-        router.push(redirectUrl);
-        return;
-      }
+      setLoading(true);
+      try {
+        const response = await fetch(loginUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            rememberMe,
+          }),
+        });
+        if (response.ok) {
+          router.push(redirectUrl);
+          return;
+        }
 
-      if (response.status === 422) {
-        setLoginError('Adresa de email nu a fost confirmata!');
-        return;
+        if (response.status === 422) {
+          setLoginError('Adresa de email nu a fost confirmata!');
+          return;
+        }
+
+        if (response.status === 401) {
+          setLoginError('Utilizator sau parola incorecta!');
+          return;
+        }
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
       }
     },
     [router, loginUrl, redirectUrl]
   );
-  return [onLogin, loginError];
+  return [onLogin, loginError, loading];
 };
 
 export const Login: React.FC<LoginProps> = (props) => {
-  const { onLogin, error, forgotPasswordUrl, registerUrl } = props;
+  const { onLogin, error, forgotPasswordUrl, registerUrl, loading} = props;
   const onFormSubmit = useCallback(
     (data: LoginFormData) =>
       onLogin(data.email, data.password, data.rememberMe),
@@ -155,14 +170,15 @@ export const Login: React.FC<LoginProps> = (props) => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
+            loading={loading}
             sx={{ mt: 3, mb: 2 }}
           >
             Sign In
-          </Button>
+          </LoadingButton>
           <Grid container>
             <Grid item xs>
               <Link href={forgotPasswordUrl} variant="body2">

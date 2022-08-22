@@ -22,5 +22,6 @@ namespace white_cloud.data.EF
         public DbSet<ClientInvite> ClientInvites { get; set; }
         public DbSet<TestRequest> TestRequests { get; set; }
         public DbSet<TestSubmission> TestSubmissions { get; set; }
+        public DbSet<TestSubmissionShare> TestSubmissionShares { get; set; }
     }
 }

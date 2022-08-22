@@ -6,18 +6,17 @@ namespace white_cloud.entities.Tests
     {
         public int Id { get; set; }
         public int TestId { get; set; }
+        public string UserId { get; set; } = string.Empty;
 
         [Column(TypeName = "jsonb")]
         public TestSubmissionAnswer[] Answers { get; set; } = new TestSubmissionAnswer[] { };
-
         public int ResultId { get; set; }
-
         [Column(TypeName = "jsonb")]
         public object? ResultData { get; set; }
-
         public DateTime Timestamp { get; set; }
-        public int? TestRequestId { get; set; }
-        public TestRequest? TestRequest {get;set;}
+
+        public User User { get; set; }
+        public List<TestSubmissionShare>? TestSubmissionShares { get; set; }
     }
 
     public class TestSubmissionAnswer

@@ -6,6 +6,7 @@ using white_cloud.interfaces.Data;
 using white_cloud.entities.Tests;
 using Microsoft.AspNetCore.Authorization;
 using white_cloud.entities.Tests.Models;
+using System.Security.Claims;
 
 namespace white_cloud.web.controllers
 {
@@ -18,7 +19,11 @@ namespace white_cloud.web.controllers
         private readonly ITestService _testService;
         private readonly IEmailService _emailService;
 
-        public TestsController(ILogger<TestsController> logger, ITestsRepository testsRepository, ITestService testService, IEmailService emailService)
+        public TestsController(
+            ILogger<TestsController> logger,
+            ITestsRepository testsRepository,
+            ITestService testService,
+            IEmailService emailService)
         {
             _logger = logger;
             _testsRepository = testsRepository;
@@ -32,17 +37,20 @@ namespace white_cloud.web.controllers
             return await _testsRepository.GetTests();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SubmitTestAnswers(PostedTestAnswers postedTestAnswers)
+        [HttpPost("request")]
+        [Authorize]
+        public async Task<IActionResult> SubmitTestAnswersForRequest(PostedTestAnswersForRequest postedTestAnswers)
         {
             var test = await _testsRepository.GetTest(postedTestAnswers.TestId, includeResults: true);
-            if(test is null)
+            if (test is null)
             {
                 return NotFound();
             }
-
-            var result = await _testService.ComputeTestResults(postedTestAnswers.Email, test, postedTestAnswers.Answers);
+            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = await _testService.SubmitTestWithRequest(test, postedTestAnswers.Answers, userId, postedTestAnswers.RequestId);
+            //var result = await _testService.ComputeTestResults(postedTestAnswers.Email, test, postedTestAnswers.Answers);
             //await _emailService.SendEmail(postedTestAnswers.Email, "Test results", result.Description);
+
             return Ok(result);
         }
 

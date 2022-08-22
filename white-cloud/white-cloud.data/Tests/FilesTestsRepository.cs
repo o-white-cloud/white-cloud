@@ -13,10 +13,24 @@ namespace white_cloud.data.Tests
         private readonly ILogger<FilesTestsRepository> _logger;
         private readonly IMemoryCache _cache;
         private readonly string _cacheTestsKey = "tests";
+        private readonly string _cacheTestsDictKey = "testsDict";
         public FilesTestsRepository(ILogger<FilesTestsRepository> logger, IMemoryCache cache)
         {
             _logger = logger;
             _cache = cache;
+        }
+
+        public async Task<Dictionary<int, TestModel>> GetTestsMap()
+        {
+            if (_cache.TryGetValue(_cacheTestsDictKey, out Dictionary<int, TestModel> cachedTests))
+            {
+                return cachedTests;
+            }
+            var tests = await GetTests(false);
+            var dict = tests.ToDictionary(t => t.Id, t => t);
+            var cacheEntry = _cache.CreateEntry(_cacheTestsDictKey);
+            cacheEntry.Value = dict;
+            return dict;
         }
 
         public async Task<List<TestModel>> GetTests(bool includeResults = false)

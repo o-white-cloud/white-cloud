@@ -9,6 +9,6 @@ namespace white_cloud.interfaces.Data
 {
     public interface ITestSubmissionsRepository
     {
-        Task InsertTestSubmission(TestSubmission testSubmission);
+        Task InsertTestSubmission(TestSubmission testSubmission, TestSubmissionShare? submissionShare = null, int? testRequestId = null);
     }
 }

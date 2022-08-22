@@ -7,6 +7,7 @@ namespace white_cloud.interfaces.Data
     public interface ITestsRepository
     {
         Task RefreshTests();
+        Task<Dictionary<int, TestModel>> GetTestsMap();
         Task<List<TestModel>> GetTests(bool includeResults = false);
         Task<TestModel?> GetTest(int id, bool includeResults = false);
     }

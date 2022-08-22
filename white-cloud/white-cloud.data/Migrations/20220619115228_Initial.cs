@@ -159,6 +159,30 @@ namespace white_cloud.data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TestSubmissions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TestId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    Answers = table.Column<TestSubmissionAnswer[]>(type: "jsonb", nullable: false),
+                    ResultId = table.Column<int>(type: "integer", nullable: false),
+                    ResultData = table.Column<object>(type: "jsonb", nullable: true),
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestSubmissions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TestSubmissions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Therapists",
                 columns: table => new
                 {
@@ -210,6 +234,7 @@ namespace white_cloud.data.Migrations
                     UserId = table.Column<string>(type: "text", nullable: false),
                     Age = table.Column<int>(type: "integer", nullable: false),
                     Gender = table.Column<int>(type: "integer", nullable: false),
+                    Ocupation = table.Column<string>(type: "text", nullable: false),
                     ClientDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -230,6 +255,34 @@ namespace white_cloud.data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TestSubmissionShares",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    TherapistId = table.Column<int>(type: "integer", nullable: false),
+                    TestSubmissionId = table.Column<int>(type: "integer", nullable: false),
+                    ShareDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestSubmissionShares", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TestSubmissionShares_TestSubmissions_TestSubmissionId",
+                        column: x => x.TestSubmissionId,
+                        principalTable: "TestSubmissions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TestSubmissionShares_Therapists_TherapistId",
+                        column: x => x.TherapistId,
+                        principalTable: "Therapists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TestRequests",
                 columns: table => new
                 {
@@ -239,8 +292,7 @@ namespace white_cloud.data.Migrations
                     ClientId = table.Column<int>(type: "integer", nullable: false),
                     SentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     TestId = table.Column<int>(type: "integer", nullable: false),
-                    SubmissionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    SendEmailOnSubmission = table.Column<bool>(type: "boolean", nullable: false)
+                    TestSubmissionShareId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -252,34 +304,16 @@ namespace white_cloud.data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_TestRequests_TestSubmissionShares_TestSubmissionShareId",
+                        column: x => x.TestSubmissionShareId,
+                        principalTable: "TestSubmissionShares",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_TestRequests_Therapists_TherapistId",
                         column: x => x.TherapistId,
                         principalTable: "Therapists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TestSubmissions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TestId = table.Column<int>(type: "integer", nullable: false),
-                    Answers = table.Column<TestSubmissionAnswer[]>(type: "jsonb", nullable: false),
-                    ResultId = table.Column<int>(type: "integer", nullable: false),
-                    ResultData = table.Column<object>(type: "jsonb", nullable: true),
-                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    TestRequestId = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TestSubmissions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TestSubmissions_TestRequests_TestRequestId",
-                        column: x => x.TestRequestId,
-                        principalTable: "TestRequests",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -340,15 +374,29 @@ namespace white_cloud.data.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TestRequests_TestSubmissionShareId",
+                table: "TestRequests",
+                column: "TestSubmissionShareId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TestRequests_TherapistId",
                 table: "TestRequests",
                 column: "TherapistId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestSubmissions_TestRequestId",
+                name: "IX_TestSubmissions_UserId",
                 table: "TestSubmissions",
-                column: "TestRequestId",
-                unique: true);
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestSubmissionShares_TestSubmissionId",
+                table: "TestSubmissionShares",
+                column: "TestSubmissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TestSubmissionShares_TherapistId",
+                table: "TestSubmissionShares",
+                column: "TherapistId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Therapists_UserId",
@@ -377,16 +425,19 @@ namespace white_cloud.data.Migrations
                 name: "ClientInvites");
 
             migrationBuilder.DropTable(
-                name: "TestSubmissions");
+                name: "TestRequests");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "TestRequests");
+                name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "TestSubmissionShares");
+
+            migrationBuilder.DropTable(
+                name: "TestSubmissions");
 
             migrationBuilder.DropTable(
                 name: "Therapists");

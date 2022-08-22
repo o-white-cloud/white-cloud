@@ -436,54 +436,63 @@
     "normalizeValue": 25,
     "intervals": [
       {
+        "id": 0,
         "min": 0,
         "max": 9,
         "name": "I",
         "details": "Infantilă în planul dezvoltării emoţionale (retard în ordinea dezvoltării emoţionale corelată cu dezvoltarea mentală)."
       },
       {
+        "id": 1,
         "min": 10,
         "max": 11,
         "name": "I",
         "details": "Copilăroasă sub aspect emoţional."
       },
       {
+        "id": 2,
         "min": 12,
         "max": 13,
         "name": "II-I",
         "details": "Persoană adolescentină sensibilă."
       },
       {
+        "id": 3,
         "min": 14,
         "max": 15,
         "name": "II-I",
         "details": "Uşoară imaturitate emoţională."
       },
       {
+        "id": 4,
         "min": 16,
         "max": 17,
         "name": "II",
         "details": "Tendinţă către imaturitate emoţională."
       },
       {
+        "id": 5,
         "min": 18,
         "max": 19,
         "name": "III",
         "details": "Maturitate emoţională."
       },
       {
+        "id": 6,
         "min": 20,
         "max": 21,
         "name": "III-IV",
         "details": "Persoană sensibilă, profund umană, cu echilibru emoţional."
       },
       {
+        "id": 7,
         "min": 22,
         "max": 24,
         "name": "IV-V",
         "details": "Maturitate emoţională normală."
       },
       {
+        "id": 8,
         "min": 25,
         "max": 25,
         "name": "V",

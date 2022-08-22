@@ -15,7 +15,27 @@
       "ProjectGuid": "af5f17f5-4752-49a5-a8e8-032304f87a19",
       "DisplayName": "white-cloud.web",
       "ColorIndex": 1
+    },
+    "9b33c01c-e197-49f3-b367-a5e7c3484bca": {
+      "ProjectGuid": "9b33c01c-e197-49f3-b367-a5e7c3484bca",
+      "DisplayName": "white-cloud.entities",
+      "ColorIndex": 2
+    },
+    "896402c4-2506-44da-80a7-47a65b248d41": {
+      "ProjectGuid": "896402c4-2506-44da-80a7-47a65b248d41",
+      "DisplayName": "white-cloud.data",
+      "ColorIndex": 3
+    },
+    "039a7441-d516-469a-baae-b83aac44d722": {
+      "ProjectGuid": "039a7441-d516-469a-baae-b83aac44d722",
+      "DisplayName": "white-cloud.interfaces",
+      "ColorIndex": 4
+    },
+    "3a16c360-e3e1-471f-9082-b36ef6b48ce2": {
+      "ProjectGuid": "3a16c360-e3e1-471f-9082-b36ef6b48ce2",
+      "DisplayName": "white-cloud.identity",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 6
 }

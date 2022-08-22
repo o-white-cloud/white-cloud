@@ -28,7 +28,7 @@ export const ClientList: React.FC<ClientListProps> = (props) => {
     if(id === Number.NaN) {
       return;
     }
-    router.push(`/client/${id}`);
+    router.push(`/therapist/client/${id}`);
   }, [router]);
   
   return (
@@ -53,9 +53,9 @@ export const ClientList: React.FC<ClientListProps> = (props) => {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {`${row.firstName} ${row.lastName}`}
+                  {`${row.userFirstName} ${row.userLastName}`}
                 </TableCell>
-                <TableCell>{row.email}</TableCell>
+                <TableCell>{row.userEmail}</TableCell>
                 <TableCell>{new Date(row.clientDate).toLocaleString()}</TableCell>
               </TableRow>
             ))}

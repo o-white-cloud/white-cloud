@@ -7,11 +7,10 @@
         public int ClientId { get; set; }
         public DateTime SentDate { get; set; }
         public int TestId { get; set; }
-        public DateTime SubmissionDate { get; set; }
-        public bool SendEmailOnSubmission { get; set; }
-        
+        public int? TestSubmissionShareId { get; set; }
+
         public Therapist Therapist { get; set; }
         public Client Client { get; set; }
-        public TestSubmission? TestSubmission { get; set; }  
+        public TestSubmissionShare? TestSubmissionShare { get; set; }
     }
 }

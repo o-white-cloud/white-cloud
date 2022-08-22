@@ -1,21 +1,17 @@
 import { FormRadioGroup, FormTextField } from 'components/forms';
 import { Gender } from 'models';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 export interface RegisterFormData {
@@ -37,12 +33,13 @@ export enum AccountType {
 
 export interface RegisterProps {
   onRegister: (data: RegisterFormData) => {};
+  loading: boolean;
   email?: string;
   inviteMode?: boolean;
   signInUrl: string;
 }
 export const Register: React.FC<RegisterProps> = (props) => {
-  const { onRegister, signInUrl, email, inviteMode } = props;
+  const { onRegister, signInUrl, email, inviteMode, loading } = props;
   const [accountType, setAccountType] = useState<AccountType>(
     AccountType.Personal
   );
@@ -76,7 +73,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
         accountType: AccountType.Personal,
         age: undefined,
         gender: undefined,
-        ocupation: undefined
+        ocupation: undefined,
       });
     }
   }, [email, reset]);
@@ -164,6 +161,7 @@ export const Register: React.FC<RegisterProps> = (props) => {
                 label="Email"
                 required
                 fullWidth
+                InputProps={{ readOnly: inviteMode }}
                 rules={{
                   required: {
                     value: true,
@@ -248,14 +246,15 @@ export const Register: React.FC<RegisterProps> = (props) => {
               </Grid>
             )}
           </Grid>
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
+            loading={loading}
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
             Sign Up
-          </Button>
+          </LoadingButton>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href={signInUrl} variant="body2">

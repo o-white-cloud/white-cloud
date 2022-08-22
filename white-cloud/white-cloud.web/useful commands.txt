@@ -1,3 +1,7 @@
 dotnet ef migrations add Initial --context WCDbContext --project ..\white-cloud.data\white-cloud.data.csproj
 dotnet ef database update --context WCDbContext --project ..\white-cloud.data\white-cloud.data.csproj
 
+sudo docker exec -it db psql -U whiteCloud -W white_cloud
+
+curl http://localhost/api/admin/updateDatabase
+curl http://localhost/api/admin/seedIdentity

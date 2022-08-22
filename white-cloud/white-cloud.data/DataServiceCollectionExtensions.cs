@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using white_cloud.data.EF;
 using white_cloud.data.Tests;
-using white_cloud.data.Therapists;
+using white_cloud.data.Repositories;
 using white_cloud.interfaces.Data;
 
 namespace white_cloud.data
@@ -16,6 +16,7 @@ namespace white_cloud.data
             services.AddTransient<ITestsRepository, FilesTestsRepository>();
             services.AddTransient<ITestSubmissionsRepository, TestSubmissionsRepository>();
             services.AddTransient<ITherapistsRepository, TherapistsRepository>();
+            services.AddTransient<IClientRepository, ClientRepository>();
 
             var migrationAssembly = typeof(WCDbContext).GetTypeInfo().Assembly.GetName().Name;
             services.AddDbContext<WCDbContext>(options =>

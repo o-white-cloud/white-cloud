@@ -1,4 +1,5 @@
 import { ClientInvite } from 'models';
+import { useSnackbar } from 'notistack';
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
@@ -28,21 +29,24 @@ export const ClientInvites: React.FC<ClientInvitesProps> = (props) => {
       .then((data) => setInvites(data));
   }, [therapistUserId]);
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const onNewInvite = useCallback(
     (invite: ClientInvite) => {
       setInvites([invite, ...invites]);
+      enqueueSnackbar('Invitatie trimisa', { variant: 'success' });
     },
-    [invites]
+    [invites, enqueueSnackbar]
   );
 
   const onResendInvite = useCallback<MouseEventHandler<HTMLButtonElement>>(
     (e) => {
       debugger;
       const id = Number(e.currentTarget.getAttribute('data-id'));
-      if(id === Number.NaN) {
+      if (id === Number.NaN) {
         return;
       }
-      const idIndex = invites.findIndex(invite => invite.id === id);
+      const idIndex = invites.findIndex((invite) => invite.id === id);
       fetch(`${process.env.NEXT_PUBLIC_HOST}/therapist/invite?id=${id}`, {
         method: 'POST',
         headers: {

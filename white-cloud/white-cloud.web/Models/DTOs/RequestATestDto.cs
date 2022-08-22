@@ -7,7 +7,6 @@ namespace white_cloud.web.Models.DTOs
         [Required]
         public int ClientId { get; set; } = 0;
         [Required]
-        public int TestId { get; set; } = 0;
-        public bool? SendEmail { get; set; }
+        public List<int> TestIds { get; set; } = new List<int>();
     }
 }

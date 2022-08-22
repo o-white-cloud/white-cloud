@@ -3,16 +3,16 @@ export interface Client {
     therapistId: number;
     userId: string;
     clientDate: string;
-    email: string;
-    firstName: string;
-    lastName: string;
+    userEmail: string;
+    userFirstName: string;
+    userLastName: string;
     age: number;
     gender: Gender;
     ocupation: string;
 }
 
 export enum Gender {
-    Female = 1,
-    Male = 2,
-    Other = 3
+    Female = "Female",
+    Male = "Male",
+    Other = "Other"
 }

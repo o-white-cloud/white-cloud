@@ -5,7 +5,7 @@ using white_cloud.entities;
 using white_cloud.entities.Tests;
 using white_cloud.interfaces.Data;
 
-namespace white_cloud.data.Therapists
+namespace white_cloud.data.Repositories
 {
     public class TherapistsRepository : ITherapistsRepository
     {
@@ -105,9 +105,9 @@ namespace white_cloud.data.Therapists
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<TestRequest> AddTestRequest(TestRequest testRequest)
+        public async Task<IEnumerable<TestRequest>> AddTestRequests(IEnumerable<TestRequest> testRequest)
         {
-            _dbContext.TestRequests.Add(testRequest);
+            _dbContext.TestRequests.AddRange(testRequest);
             await _dbContext.SaveChangesAsync();
             return testRequest;
         }
@@ -119,8 +119,30 @@ namespace white_cloud.data.Therapists
 
         public async Task<List<TestRequest>> GetTestRequests(int therapistId, int clientId)
         {
-            var requests = await _dbContext.TestRequests.Where(r => r.TherapistId == therapistId && r.ClientId == clientId).ToListAsync();
+            var requests = await _dbContext.TestRequests.Where(r => r.TherapistId == therapistId && r.ClientId == clientId && r.TestSubmissionShareId == null).ToListAsync();
             return requests;
+        }
+
+        public async Task<bool?> DeleteTestRequest(int id)
+        {
+            var request = await _dbContext.TestRequests.FindAsync(id);
+            if (request == null)
+            {
+                return null;
+            }
+            if (request.TestSubmissionShareId != null)
+            {
+                return false;
+            }
+
+            _dbContext.TestRequests.Remove(request);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<List<TestSubmissionShare>> GetTestSubmissionShares(int therapistId, string userId)
+        {
+            return await _dbContext.TestSubmissionShares.Include(s => s.TestSubmission).Where(s => s.UserId == userId && s.TherapistId == therapistId).ToListAsync();
         }
     }
 }
